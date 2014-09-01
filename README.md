@@ -25,10 +25,7 @@
 ## Requirements
 
 - Node 0.10.x
-- Redis 2.6.x
 - Postgresql 9.1.x
-- etc
-- etc
 
 ## Development
 
@@ -37,9 +34,15 @@
 From within the root directory:
 
 ```sh
-sudo npm install -g bower
+# Install global dependencies:
 npm install
+npm install -g bower
 bower install
+# Install compass css pre-processor Ruby gem:
+sudo gem update --system
+sudo gem install compass
+# Tests
+
 ```
 
 ### Roadmap
