@@ -41,7 +41,7 @@ module.exports = function (grunt) {
         }
       },
       jsTest: {
-        files: ['test/spec/{,*/}*.js'],
+        files: ['app/**/*Spec.js'],
         tasks: ['newer:jshint:test', 'karma']
       },
       compass: {
@@ -124,9 +124,9 @@ module.exports = function (grunt) {
       },
       test: {
         options: {
-          jshintrc: 'test/.jshintrc'
+          jshintrc: '.jshintrc'
         },
-        src: ['test/spec/{,*/}*.js']
+        src: ['app/**/*Spec.js']
       }
     },
 
@@ -385,7 +385,7 @@ module.exports = function (grunt) {
     // Test settings
     karma: {
       unit: {
-        configFile: 'test/karma.conf.js',
+        configFile: 'karma.conf.js',
         singleRun: true
       }
     }

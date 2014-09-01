@@ -1,27 +1,32 @@
-app
-  // .factory('InventoryFactory', function(){})
-  .controller('InventoryCtrl', ['$scope', function(){
-
-
-  }]);
-
-
-
-
-'use strict';
-
 /**
  * @ngdoc function
  * @name lenderBeeApp.controller:MainCtrl
  * @description
  * # MainCtrl
- * Controller of the lenderBeeApp
+ * Controller of the inventory lenderBeeApp
  */
-angular.module('lenderBeeApp')
-  .controller('MainCtrl', function ($scope) {
-    $scope.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
+
+app
+  .factory('Inventory', function(){
+    console.log('Inventory loaded!');
+    return [
+        {
+          name: "spork",
+          owner: "Tommy", 
+          possessor: "Tommy"
+        },
+        {
+          name: "bike",
+          owner: "Tommy", 
+          possessor: "Collin"
+        },
+        {
+          name: "headphones",
+          owner: "Tommy", 
+          possessor: "Jonathan"
+        }
+      ];
+  })
+  .controller('InventoryCtrl', function($scope, Inventory){
+    $scope.inventory = Inventory;
   });

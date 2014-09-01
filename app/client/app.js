@@ -18,6 +18,7 @@ var app = angular
     'ngTouch'
   ])
   .config(function ($routeProvider) {
+    console.log('app.config loaded!');
     $routeProvider
       .when('/', {
       })

@@ -1,5 +1,5 @@
-<div>
-  <ul>
-    <li ng-repeat="item in inventory">{{ item.name }}</li>
-  </ul>
+<div ng-model="inventory">
+  <div ng-repeat="item in inventory">
+    {{ item.possessor }} has {{ item.owner }}'s {{ item.name }}.
+  </div>
 </div>
