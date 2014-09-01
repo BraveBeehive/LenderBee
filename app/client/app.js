@@ -8,7 +8,7 @@
  *
  * Main module of the application.
  */
-angular
+var app = angular
   .module('lenderBeeApp', [
     'ngAnimate',
     'ngCookies',
@@ -18,10 +18,9 @@ angular
     'ngTouch'
   ])
   .config(function ($routeProvider) {
+    console.log('app.config loaded!');
     $routeProvider
       .when('/', {
-        templateUrl: 'views/main.html',
-        controller: 'MainCtrl'
       })
       .when('/searchresults', {
         templateUrl: 'client/searchresults/searchresults.html',
@@ -30,6 +29,9 @@ angular
       .when('/searchbar', {
         templateURL: 'client/search/searchbar.html',
         controller: 'searchbarController'
+      .when('/inventory', {
+        templateUrl: 'inventory/inventory.html',
+        controller: 'InventoryCtrl'
       })
       .otherwise({
         redirectTo: '/'
