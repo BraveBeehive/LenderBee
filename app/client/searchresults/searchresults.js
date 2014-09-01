@@ -1,4 +1,4 @@
-angular.module('foundlist', [])
-	.controller('foundlistController', function($scope) {
+angular.module('searchresults', [])
+	.controller('searchresultsController', function($scope) {
 
 	}); 
