@@ -1,6 +1,6 @@
-# Project Name
+# LenderBee
 
-> Pithy project description
+> Building communities by enabling you to borrow and lend items with your neighbors!  
 
 ## Team
 
@@ -44,7 +44,7 @@ bower install
 
 ### Roadmap
 
-View the project roadmap [here](LINK_TO_PROJECT_ISSUES)
+View the project roadmap [here](https://github.com/BraveBeehive/LenderBee/issues)
 
 
 ## Contributing
