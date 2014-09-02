@@ -45,6 +45,10 @@ sudo gem install compass
 
 ```
 
+### File Structure
+
+- Placeholder for quick description on file structure.
+
 ### Roadmap
 
 View the project roadmap [here](https://github.com/BraveBeehive/LenderBee/issues)
