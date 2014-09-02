@@ -3,7 +3,8 @@ angular.module('lenderbee.searchresults', ['lenderbee.services'])
 	.controller('searchresultsController', ['$scope', 'searchresultsFact', function($scope, searchresultsFact) {
 		// Since $scope.data is equal to the returned object of searchresultsFact, we can access every model by saying something like "item in data".
 		$scope.data = searchresultsFact;
-		console.log($scope.data, "this is scope.data");
+		// console.log($scope.data, "this is scope.data");
+		// console.log(typeof $scope.data, "typeof scope.data");
 
 		/*
 

@@ -1,6 +1,6 @@
 angular.module('lenderbee.services', [])
 
-	.factory('searchresultsFact', ['$http', function($http) {
+	.factory('searchresultsFact', ['$http', '$location', function($http, $location) {
 		// This is where I would require the $http dependency and write my ajax methods here
 		var results = {};
 
@@ -10,13 +10,16 @@ angular.module('lenderbee.services', [])
 			return $http({
 				method: "GET",
 				url: '/api/something'
+				// Data for the query string or pass it into the URL as an argument in the function to the url
 			})
 			.then(function(err, resp) {
 				if (err) {
 					throw err;
 				}
 				this.searchResults = resp.data;
-				return resp.data;
+				$location.path('/searchresults');
+				console.log(resp.data, "this is the response data");
+				// return resp.data;
 			});
 		};
 

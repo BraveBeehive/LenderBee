@@ -16,7 +16,16 @@ describe('Controller: searchresultsController', function () {
     });
   }));
 
-  it('should attach a list of awesomeThings to the scope', function () {
-    expect(scope.awesomeThings.length).toBe(3);
+  it('should return an object ', function () {
+    expect(typeof(scope.data)).toEqual("object");
   });
+
+  it('should contain an item description property', function() {
+    expect(scope.data.itemdescription).not.toBe(null);
+  });
+
+  it('should cotain a distance property', function() {
+    expect(scope.data.distance).not.toBe(null);
+  });
+
 });

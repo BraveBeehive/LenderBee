@@ -3,7 +3,8 @@
 
 	<h3>Borrow Something</h3>
   <div>
-  	<form name="searchbar" ng-submit="search(searchy.query)">
+  	<!-- Maybe include some validation here as well and make sure ng-submit="search" contains search.query-->
+  	<form name="searchbar" ng-submit="search()">
   		<input type="text" ng-model="search.query">
   		<button class="search">Search</button>
   	</form>

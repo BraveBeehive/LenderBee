@@ -1,12 +1,14 @@
-angular.module('lenderbee.searchbar', [])
-	.controller('searchbarController', ['$scope', function($scope) {
-		// I need a service or a factory that does the ajax call to the server
-		// Then I need those results stored somewhere so they could be accessed or searched for
-		$scope.search = {};
+angular.module('lenderbee.searchbar', ['lenderbee.services'])
 
-		// Maybe include some validation logic as well?
+	.controller('searchbarController', ['$scope', '$location', 'searchresultsFact', function($scope, $location, searchresultsFact) {
+		// searchresultsFact holds the data and does the ajax calls
+
+		// As a hack to make this functional, including $location to switch the location to /searchresults view	
 		$scope.search = function() {
+			$location.path('/searchresults');
+		};
 
-		}
+		// my search function should call the getSearchResults method on the searchresults factory.
+		// $scope.search = searchresultsFact.getSearchResults;
 
 	}]);
