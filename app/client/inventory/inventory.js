@@ -8,7 +8,7 @@
 
 app
   .factory('Inventory', function(){
-    console.log('Inventory loaded!');
+    // console.log('Inventory factory loaded!');
     return [
         {
           name: "spork",
@@ -28,5 +28,6 @@ app
       ];
   })
   .controller('InventoryCtrl', function($scope, Inventory){
+    // console.log('InventoryCtrl loaded!');
     $scope.inventory = Inventory;
   });
