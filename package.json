@@ -5,7 +5,8 @@
     "body-parser": "^1.6.7",
     "express": "^4.8.7",
     "imagemin-gifsicle": "^1.0.0",
-    "jpegtran-bin": "^1.0.1"
+    "jpegtran-bin": "^1.0.1",
+    "morgan": "^1.2.3"
   },
   "devDependencies": {
     "grunt": "^0.4.1",
