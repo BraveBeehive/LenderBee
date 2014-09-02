@@ -15,13 +15,9 @@ var morgan = require('morgan');
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 
-// Require Mongoose for TESTING PURPOSES ONLY
-// var mongoose = require('mongoose');
-
 // Define app using Express and port for securing server connection
 var app = express();
 var port = process.env.PORT || 7432;
-
 
 // configuration (to be used later) ================================
 // require('./config/passport')(passport); // pass passport for configuration
@@ -92,5 +88,3 @@ app.use('/api', router);
 // Open server connection
 app.listen(port);
 console.log('Server now open and listening on port:', port);
-
-// Connect to database
