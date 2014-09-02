@@ -1,3 +1,11 @@
+<<<<<<< HEAD
+node_modules
+dist
+.tmp
+.sass-cache
+bower_components
+npm-debug.log
+=======
 ### node etc ###
 
 # Logs
@@ -31,3 +39,4 @@ bower_components/
 
 # OS X artifacts
 .DS_Store
+>>>>>>> 08af88139b0a3b642132bdcc0cb94bc65647abcd
