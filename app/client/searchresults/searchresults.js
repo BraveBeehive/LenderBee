@@ -1,7 +1,10 @@
 angular.module('searchresults', [])
-	.controller('searchresultsController', ["$scope", function($scope) {
+	
+	.controller('srController', ['$scope', 'searchresultsFact', function($scope, searchresultsFact) {
 		// Since $scope.data is equal to the returned object of searchresultsFact, we can access every model by saying something like "item in data".
 		$scope.data = searchresultsFact;
+		$scope.test = "hello i'm here!";
+		console.log($scope.data, "this is scope.data");
 
 		/*
 
@@ -44,21 +47,21 @@ angular.module('searchresults', [])
 				{
 					itemid: 9,
 					itemdescription: "legit power drill",
-					tags: ["powertool", "goodcondition"]
+					tags: ["powertool", "goodcondition"],
 					distance: .5
 				},
 				{
 					itemid: 25,
 					itemdescription: "Black and Decker Power Drill",
-					tags: ["powertool", "almostnew"]
+					tags: ["powertool", "almostnew"],
 					distance: 1.2
 				},
 				{
 					itemid: 356,
 					itemdescription: "working power drill; low voltage",
-					tags: ["powertool", "savepower"]
+					tags: ["powertool", "savepower"],
 					distance: .3
 				}
 			]
 		}
-	});
+	}]);

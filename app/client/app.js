@@ -10,6 +10,8 @@
  */
 var app = angular
   .module('lenderBeeApp', [
+    'searchresults',
+    'searchbar',
     'ngAnimate',
     'ngCookies',
     'ngResource',
@@ -23,12 +25,13 @@ var app = angular
       .when('/', {
       })
       .when('/searchresults', {
-        templateUrl: 'client/searchresults/searchresults.html',
-        controller: 'searchresultsController'
+        templateUrl: 'searchresults/searchresults.html',
+        controller: 'srController'
       })
       .when('/searchbar', {
-        templateURL: 'client/search/searchbar.html',
+        templateURL: 'search/searchbar.html',
         controller: 'searchbarController'
+      })
       .when('/inventory', {
         templateUrl: 'inventory/inventory.html',
         controller: 'InventoryCtrl'

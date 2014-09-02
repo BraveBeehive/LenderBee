@@ -4,4 +4,5 @@ angular.module('searchbar', [])
 		// Then I need those results stored somewhere so they could be accessed or searched for
 
 		// Maybe include some validation logic as well?
+		$scope.test = "testing!";
 	})
