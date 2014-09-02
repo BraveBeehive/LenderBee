@@ -19,8 +19,13 @@ var cookieParser = require('cookie-parser');
 var app = express();
 var port = process.env.PORT || 7432;
 
+// TO BE DELETED; JUST FOR TESTING
+var mongoose = require('mongoose');
+var configDB = require('./database/testDatabase.js');
+mongoose.connect(configDB.url);
+
 // configuration (to be used later) ================================
-// require('./config/passport')(passport); // pass passport for configuration
+require('./config/passport')(passport); // pass passport for configuration
 
 // Set up and configure Express application
 
@@ -59,6 +64,11 @@ router.use(function(request, response, next) {
 // base route for testing purposes
 router.get('/', function(request, response) {
 	response.json({ message: "this is a test" });
+});
+
+// testing signup
+router.post('/signup', passport.authenticate('local-signup'), function(request, response) {
+  console.log('sign-up was called');
 });
 
 // routes for managing inventory
