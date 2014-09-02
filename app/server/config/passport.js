@@ -67,4 +67,33 @@ module.exports = function(passport) {
 			});
 			});
 	}));
+
+	passport.use('local-login', new LocalStrategy({
+		usernameField: 'email',
+		passwordField: 'password',
+		passReqToCallback: true
+	},
+	function(request, email, password, done) {
+		User.findOne({ 'local.email' : email }, function(err, user) {
+			if (err) {
+				return done(err);
+			}
+
+			// if no user is found, return the message
+			if (!user) {
+				console.log('user not found');
+				return done(null, false, request.flash('loginMessage', 'No user found with that e-mail'));
+			}
+
+			// if user is found, but password is incorrect
+			if (!user.validPassword(password)) {
+				console.log('user found, but password incorrect');
+				return done(null, false, request.flash('loginMessage', 'You have entered an incorrect password'));
+			}
+
+			// else, user is found and everything has gone successfully
+			console.log('you\'re logged in now');
+			return done(null, user);
+		});
+	}));
 };

@@ -15,6 +15,12 @@ module.exports = function(app, passport) {
 	  response.send(200);
 	});
 
+	// testing login
+	app.post('/login', passport.authenticate('local-login'), function(request, response) {
+		console.log('log-in was called');
+		response.send(200);
+	});
+
 	// routes for managing inventory
 	app.post('/inventory', function(request, response) {
   	console.log('adding a new item to user inventory');

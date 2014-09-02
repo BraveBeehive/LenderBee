@@ -28,7 +28,6 @@ mongoose.connect(configDB.url);
 require('./config/passport')(passport); // pass passport for configuration
 
 // Set up and configure Express application
-
 // Use bodyParser to handle JSON objects
 // https://github.com/expressjs/body-parser
 app.use(bodyParser.urlencoded({ extended: true }));
