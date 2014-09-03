@@ -5,9 +5,9 @@ var express = require('express');
 
 // Require Passport and associated resources to handle user authentication
 var passport = require('passport');
-var LocalStrategy = require('passport-local');
+// var LocalStrategy = require('passport-local');
 var FacebookStrategy = require('passport-facebook');
-var flash = require('connect-flash');
+// var flash = require('connect-flash');
 
 // Require middleware
 var session = require('express-session');
@@ -20,9 +20,9 @@ var app = express();
 var port = process.env.PORT || 7432;
 
 // TO BE DELETED; JUST FOR TESTING
-var mongoose = require('mongoose');
-var configDB = require('./database/testDatabase.js');
-mongoose.connect(configDB.url);
+// var mongoose = require('mongoose');
+// var configDB = require('./database/testDatabase.js');
+// mongoose.connect(configDB.url);
 
 // configuration (to be used later) ================================
 require('./config/passport')(passport); // pass passport for configuration
