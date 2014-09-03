@@ -9,7 +9,7 @@ var express = require('express');
 var passport = require('passport');
 // var LocalStrategy = require('passport-local');
 var FacebookStrategy = require('passport-facebook');
-// var flash = require('connect-flash');
+var flash = require('connect-flash');
 
 // Require middleware
 var session = require('express-session');
