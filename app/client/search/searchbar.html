@@ -1,9 +1,12 @@
-<div id="searchbar">
+<div id="container">
 	<h1>LenderBee</h1>
-	<br />
+
 	<h3>Borrow Something</h3>
-  <form name="searchbar">
-  	<input type="text" ng-model=""/>
-  	<button>Search</button>
-  </form>
+  <div>
+  	<!-- Maybe include some validation here as well and make sure ng-submit="search" contains search.query-->
+  	<form name="searchbar" ng-submit="search()">
+  		<input type="text" ng-model="search.query">
+  		<button class="search">Search</button>
+  	</form>
+  </div>
 </div>

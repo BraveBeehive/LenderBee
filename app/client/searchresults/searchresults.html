@@ -1,9 +1,10 @@
-<div id="foundlist">
+<div id="container">
 	<h1>LenderBee</h1>
 
 	<div>
-		<ul>
-			<li ng-repeat="">
+		<ul>{{ test }}
+			<li ng-repeat="item in data.searchResults">
+				<h3>{{ item.itemdescription}} | {{ item.distance }}</h3>
 			</li>
 		</ul>
 	</div>

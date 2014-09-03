@@ -10,6 +10,9 @@
  */
 var app = angular
   .module('lenderBeeApp', [
+    'lenderbee.searchresults',
+    'lenderbee.searchbar',
+    'lenderbee.services',
     'ngAnimate',
     'ngCookies',
     'ngResource',
@@ -21,6 +24,14 @@ var app = angular
     // console.log('app.config loaded!');
     $routeProvider
       .when('/', {
+      })
+      .when('/searchresults', {
+        templateUrl: 'searchresults/searchresults.html',
+        controller: 'searchresultsController'
+      })
+      .when('/searchbar', {
+        templateUrl: 'search/searchbar.html',
+        controller: 'searchbarController'
       })
       .when('/inventory', {
         templateUrl: 'inventory/inventory.html',
