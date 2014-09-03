@@ -107,7 +107,7 @@ module.exports = function(passport) {
 		clientID: configAuth.facebookAuth.clientID,
 		clientSecret: configAuth.facebookAuth.clientSecret,
 		callbackURL: configAuth.facebookAuth.callbackURL
-		},
+	},
 
 		// facebook will send back a token and profile
 		function(token, refreshToken, profile, done) {
@@ -128,10 +128,10 @@ module.exports = function(passport) {
 						var newUser = new User();
 
 						// create all facebook attributes for new user
-						newUser.facebook.id = profile.id;
-						newUser.facebook.token = profile.token;
-						newUser.facebook.name = profile.name.givenName + ' ' + profile.name.familyName;
-						newUser.facebook.email = profile.emails[0].value;
+						newUser.facebook.id    = profile.id;
+	          newUser.facebook.token = token;	                
+	          newUser.facebook.name  = profile.name.givenName + ' ' + profile.name.familyName;
+	          newUser.facebook.email = profile.emails[0].value;
 
 						// save new user to database
 						newUser.save(function(err) {
