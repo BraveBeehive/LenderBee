@@ -2,13 +2,13 @@
 
 module.exports = function(app, passport) {
 	app.use(function(request, response, next) {
-		console.log("A request has been made to the server");
+		console.log('A request has been made to the server');
 		next();
 	});
 
 	// base route for testing purposes
 	app.get('/', function(request, response) {
-		response.json({ message: "this is a test" });
+		response.json({ message: 'this is a test' });
 	});
 
 	// testing signup
