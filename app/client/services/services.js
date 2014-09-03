@@ -4,13 +4,13 @@ angular.module('lenderbee.services', [])
 		// This is where I would require the $http dependency and write my ajax methods here
 		var results = {};
 
-		results.getSearchResults = function() {
+		results.getSearchResults = function(querystr) {
 			// $http ajax call to the server to get searchResults
 			// Returns a promise and then send it over to the controller? Or does the logic have to be in the controller?
 			return $http({
 				method: "GET",
-				url: '/api/something'
-				// Data for the query string or pass it into the URL as an argument in the function to the url
+				url: '/api/search',
+				data: {itemname: querystr}
 			})
 			.then(function(err, resp) {
 				if (err) {
@@ -23,6 +23,7 @@ angular.module('lenderbee.services', [])
 			});
 		};
 
+		/* This function call might not be necessary
 		results.sendQuery = function(query) {
 			// Send an ajax post request to query the data back.
 			return $http({
@@ -34,8 +35,7 @@ angular.module('lenderbee.services', [])
 				console.log(resp, "this is resp");
 			});
 		};
-
-		// Might need another function that's called queryThenDisplay?
+		*/
 
 		return {
 			searchResults: [
