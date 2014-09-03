@@ -28,6 +28,22 @@ module.exports = function(app, passport) {
   	response.send(200);
   });
 
+  // for facebook login/authentication
+  app.get('/auth/facebook', passport.authenticate('facebook', { scope: 'email' }));
+
+  // handle the callback after facebook has verified the user
+  app.get('/auth/facebook/callback', passport.authenticate('facebook'), function(request, response) {
+  	console.log('user authenticated via facebook');
+  	response.send(200);
+  });
+
+  // handle logout/session end
+  app.get('/logout', function(request, response) {
+  	console.log('user is logging out');
+  	request.logout();
+  	response.send(200);
+  });
+
 	// app.post(function(request, response) {
  //  	console.log('removing an existing item from user inventory');
  //  	// insert logic for database query 
@@ -40,4 +56,14 @@ module.exports = function(app, passport) {
   	// insert logic for database query
   	response.send(200);
   });
+};
+
+// Utility functions:
+var isLoggedIn = function(request, response, next) {
+	if (request.isAuthenticated()) {
+		return next();
+	}
+
+	console.log('not logged in');
+	response.send(200)
 };
