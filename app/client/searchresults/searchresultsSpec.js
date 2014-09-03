@@ -24,7 +24,7 @@ describe('Controller: searchresultsController', function () {
     expect(scope.data.itemdescription).not.toBe(null);
   });
 
-  it('should cotain a distance property', function() {
+  it('should contain a distance property', function() {
     expect(scope.data.distance).not.toBe(null);
   });
 

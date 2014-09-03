@@ -20,4 +20,5 @@ describe('Controller: searchbarController', function () {
     expect(typeof(scope.search)).toEqual("function");
   });
 
+
 });
