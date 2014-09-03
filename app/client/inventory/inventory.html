@@ -1,5 +1,10 @@
 <div ng-model="inventory">
-  <div ng-repeat="item in inventory">
+  <button ng-click="add()">add</button>
+  <button ng-click="borrow()">borrow</button>
+  <div ng-repeat="item in inventory" ng-controller="ItemCtrl">
     {{ item.possessor }} has {{ item.owner }}'s {{ item.name }}.
+    <button ng-click="lend()" ng-show="item.isRequested">lend</button>
+    <button ng-click="demand()" ng-show="item.owner === currentUser && item.possessor !== currentUser">demand</button>
+    <button ng-click="return()" ng-show="item.owner !== currentUser">return</button>
   </div>
 </div>
