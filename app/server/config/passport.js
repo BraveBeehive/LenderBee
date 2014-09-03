@@ -1,3 +1,5 @@
+'use strict';
+
 // load all the things we need
 var FacebookStrategy = require('passport-facebook').Strategy;
 

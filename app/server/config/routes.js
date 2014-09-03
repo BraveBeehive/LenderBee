@@ -1,3 +1,5 @@
+'use strict';
+
 module.exports = function(app, passport) {
 	app.use(function(request, response, next) {
 		console.log("A request has been made to the server");

@@ -1,3 +1,5 @@
+'use strict';
+
 // Base set-up where packages, modules, and other files are required.
 
 // Require Express for server configuration, routing, etc.
