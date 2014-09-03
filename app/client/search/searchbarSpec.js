@@ -17,8 +17,13 @@ describe('Controller: searchbarController', function () {
   }));
 
   it('should be a function', function () {
-    expect(typeof(scope.search)).toEqual("function");
+    expect(typeof(scope.searchItem)).toEqual("function");
   });
 
+  it('searchQuery should be an object', function() {
+    expect(typeof(scope.searchQuery)).toEqual("object");
+  });
+
+  // A good test is that searchItems should redirect page after query finishes
 
 });
