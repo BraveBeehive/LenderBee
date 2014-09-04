@@ -3,9 +3,9 @@
 
 	<h3>Borrow Something</h3>
   <div>
-  	<!-- Maybe include some validation here as well and make sure ng-submit="search" contains search.query-->
-  	<form name="searchbar" ng-submit="search()">
-  		<input type="text" ng-model="search.query">
+  	<!-- Maybe include some validation here as well; searchItem should take the argument searchQuery.querystr. For the time being, this doesn't take anything since it just redirects -->
+  	<form name="searchbar" ng-submit="searchItem(searchQuery.querystr)">
+  		<input type="text" ng-model="searchQuery.querystr">
   		<button class="search">Search</button>
   	</form>
   </div>
