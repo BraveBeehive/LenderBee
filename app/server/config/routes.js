@@ -17,18 +17,9 @@ module.exports = function(app, passport) {
 	// routing for searchbar
 	app.post('/api/search', function(request, response) {
 		console.log(request.body);
-		response.send(200);
-	});
-
-	// testing signup
-	app.post('/signup', passport.authenticate('local-signup'), function(request, response) {
-	  console.log('sign-up was called');
-	  response.send(200);
-	});
-
-	// testing login
-	app.post('/login', passport.authenticate('local-login'), function(request, response) {
-		console.log('log-in was called');
+		console.log('searching for an item');
+  	// insert logic for database query
+  	// util.searchForItemInInventory();
 		response.send(200);
 	});
 
@@ -61,14 +52,6 @@ module.exports = function(app, passport) {
   app.get('/logout', function(request, response) {
   	console.log('user is logging out');
   	request.logout();
-  	response.send(200);
-  });
-
-	// route for searching for an item
-	app.post('/search', function(request, response) {
-  	console.log('searching for an item');
-  	// insert logic for database query
-  	// util.searchForItemInInventory();
   	response.send(200);
   });
 };
