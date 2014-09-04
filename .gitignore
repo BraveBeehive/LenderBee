@@ -1,12 +1,10 @@
-<<<<<<< HEAD
+### node etc ###
 node_modules
 dist
 .tmp
 .sass-cache
 bower_components
 npm-debug.log
-=======
-### node etc ###
 
 # Logs
 logs
@@ -30,6 +28,8 @@ coverage
 build/
 dist/
 .sass-cache/
+*.css
+*.css.*
 
 # Dependency directorys
 # Deployed apps should consider commenting these lines out:

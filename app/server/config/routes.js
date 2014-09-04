@@ -3,14 +3,21 @@
 var util = require('../database/utility.js');
 
 module.exports = function(app, passport) {
+	
 	app.use(function(request, response, next) {
 		console.log('A request has been made to the server');
 		next();
 	});
 
 	// base route for testing purposes
-	app.get('/', function(request, response) {
-		response.json({ message: 'this is a test' });
+	// app.get('/', function(request, response) {
+	// 	response.json({ message: 'this is a test' });
+	// });
+
+	// routing for searchbar
+	app.post('/api/search', function(request, response) {
+		console.log(request.body);
+		response.send(200);
 	});
 
 	// testing signup
@@ -73,5 +80,5 @@ var isLoggedIn = function(request, response, next) {
 	}
 
 	console.log('not logged in');
-	response.send(200)
+	response.send(200);
 };

@@ -28,11 +28,6 @@ client.connect();
 var app = express();
 var port = process.env.PORT || 7432;
 
-// TO BE DELETED; JUST FOR TESTING
-// var mongoose = require('mongoose');
-// var configDB = require('./database/testDatabase.js');
-// mongoose.connect(configDB.url);
-
 // configuration (to be used later) ================================
 require('./config/passport')(passport); // pass passport for configuration
 
@@ -56,8 +51,9 @@ app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions after successful authentication
 app.use(flash()); 
 
-// Set up static file-routing
-app.use(express.static(__dirname + '/app/client'));
+// Set up static file-routing (needs to be relative path to base index.html from /config/routes.js)
+app.use(express.static(__dirname + '../../client')); 
+app.use('/bower_components', express.static(__dirname + '../../../bower_components'));
 
 // Set up routes to be prefixed with API
 // app.use('/api', allRoutes);
