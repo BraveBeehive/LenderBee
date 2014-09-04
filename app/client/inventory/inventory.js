@@ -8,9 +8,7 @@
  * Controller of the inventory lenderBeeApp
  */
 
-var user = 'Tommy';
-
-app
+angular.module('lenderbee.inventory',[])
   .factory('Inventory', function(){
     // console.log('Inventory factory loaded!');
     return [

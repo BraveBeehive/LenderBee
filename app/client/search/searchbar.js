@@ -1,3 +1,5 @@
+'use strict';
+
 angular.module('lenderbee.searchbar', ['lenderbee.services'])
 
 	.controller('searchbarController', ['$scope', '$location', 'searchresultsFact', function($scope, $location, searchresultsFact) {
@@ -9,7 +11,7 @@ angular.module('lenderbee.searchbar', ['lenderbee.services'])
 		// Might be some syntactical issues, but for the most part, the logic is on track.
 		$scope.searchItem = function(querystr) {
 			$scope.loading = true;
-			console.log("this is the querystr: ", querystr);
+			console.log('this is the querystr: ', querystr);
 
 			// searchresultsFact
 			// 	.getSearchResults(querystr)
