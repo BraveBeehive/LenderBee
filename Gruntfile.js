@@ -171,15 +171,15 @@ module.exports = function (grunt) {
         ignorePath:  /\.\.\//
       },
       sass: {
-        src: ['<%= yeoman.app %>/styles/{,*/}*.{scss,sass}'],
-        ignorePath: /(\.\.\/){1,2}bower_components\//
+        src: ['**/*.{scss,sass}']
+        // ignorePath: /(\.\.\/){1,2}bower_components\//
       }
     },
 
     // Compiles Sass to CSS and generates necessary files if requested
     compass: {
       options: {
-        sassDir: '<%= yeoman.app %>/styles',
+        sassDir: '<%= yeoman.app %>/client',
         cssDir: '.tmp/styles',
         generatedImagesDir: '.tmp/images/generated',
         imagesDir: '<%= yeoman.app %>/images',
@@ -202,7 +202,7 @@ module.exports = function (grunt) {
         options: {
           debugInfo: true
         }
-      }
+      },
     },
 
     // Renames files for browser caching purposes
@@ -389,9 +389,17 @@ module.exports = function (grunt) {
         configFile: 'karma.conf.js',
         singleRun: true
       }
-    }
-  });
+    },
 
+    sass: {                              // Task
+      dist: {                            // Target
+        files: {                         // Dictionary of files
+          'app/client/app.css': 'app/client/app.scss'       // 'destination': 'source'
+        }
+      }
+    }
+
+  });
 
   grunt.registerTask('serve', 'Compile then start a connect web server', function (target) {
     if (target === 'dist') {
@@ -423,6 +431,8 @@ module.exports = function (grunt) {
 
   grunt.registerTask('build', [
     'clean:dist',
+    'sass',
+
     'wiredep',
     'useminPrepare',
     'concurrent:dist',

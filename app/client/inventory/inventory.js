@@ -8,7 +8,7 @@
  * Controller of the inventory lenderBeeApp
  */
 
-var user = "Tommy";
+var user = 'Tommy';
 
 app
   .factory('Inventory', function(){
@@ -46,7 +46,7 @@ app
     $scope.inventory = Inventory;
     $scope.add = function(){console.log('add');};
     $scope.borrow = function(){console.log('borrow');};
-    $scope.currentUser = "Tommy";
+    $scope.currentUser = 'Tommy';
   })
   .controller('ItemCtrl', function($scope){
     $scope.lend = function(){console.log('lend');};
