@@ -1,5 +1,7 @@
 'use strict';
 
+var util = require('../database/utility.js');
+
 module.exports = function(app, passport) {
 	app.use(function(request, response, next) {
 		console.log('A request has been made to the server');
@@ -27,6 +29,15 @@ module.exports = function(app, passport) {
 	app.post('/inventory', function(request, response) {
   	console.log('adding a new item to user inventory');
   	// insert logic for database query
+  	// util.addItemToInventory();
+  	response.send(200);
+  });
+
+  // remove item from inventory
+  app.post('/remove', function(request, response) {
+  	console.log('removing an existing item from user inventory');
+  	// insert logic for database query
+  	// util.removeItemFromInventory();
   	response.send(200);
   });
 
@@ -46,16 +57,11 @@ module.exports = function(app, passport) {
   	response.send(200);
   });
 
-	// app.post(function(request, response) {
- //  	console.log('removing an existing item from user inventory');
- //  	// insert logic for database query 
- //  	response.send(200);
- //  });
-
 	// route for searching for an item
 	app.post('/search', function(request, response) {
   	console.log('searching for an item');
   	// insert logic for database query
+  	// util.searchForItemInInventory();
   	response.send(200);
   });
 };

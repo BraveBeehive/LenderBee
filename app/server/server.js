@@ -1,5 +1,4 @@
 'use strict';
-
 // Base set-up where packages, modules, and other files are required.
 
 // Require Express for server configuration, routing, etc.
@@ -16,6 +15,14 @@ var session = require('express-session');
 var morgan = require('morgan');
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
+
+//Bookshelf and Knex
+var bookshelf = require('./database/database.js')
+var pg = require('pg');
+var conString = "postgres://lenderbee:lenderbee@localhost:7432/lenderbee";
+var client = new pg.Client(conString);
+//connect to database;
+client.connect();
 
 // Define app using Express and port for securing server connection
 var app = express();
@@ -61,3 +68,21 @@ require('./config/routes.js')(app, passport);
 // Open server connection
 app.listen(port);
 console.log('Server now open and listening on port:', port);
+
+//TEST QUERIES
+// var query = client.query('select * from users');
+// query.on('row', function(row, result) {
+//   result.addRow(row);
+// });
+
+// var query = client.query('select * from inventory');
+// query.on('row', function(row, result) {
+//   result.addRow(row);
+// });
+
+
+// query.on('end', function(result) {
+//   console.log(JSON.stringify(result.rows, null, ' '));
+//   client.end();
+// })
+//TEST QUERY END
