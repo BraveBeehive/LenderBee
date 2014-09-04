@@ -41,6 +41,7 @@ bower install
 # Install compass css pre-processor Ruby gem:
 sudo gem update --system
 sudo gem install compass
+sudo gem install sass
 # Tests
 
 ```
