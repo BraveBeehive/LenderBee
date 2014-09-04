@@ -17,7 +17,7 @@ describe('Controller: InventoryCtrl', function () {
   }));
 
   it('should attach an inventory of items to the scope', function () {
-    expect(scope.inventory.length).toBe(3);
+    expect(scope.inventory.length).toBe(4);
   });
 
   it('should know an inventory item has a name', function () {
