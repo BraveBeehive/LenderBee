@@ -4,7 +4,8 @@
 var FacebookStrategy = require('passport-facebook').Strategy;
 
 // load up the user model (from the database)
-var User = require('../database/testUser.js');
+var User = require('../database/models/user.js');
+var Users = require('../database/collections/users.js')
 
 // require authorization variables for Facebook
 var configAuth = require('./auth.js');
@@ -23,9 +24,18 @@ module.exports = function(passport) {
 
 	//deserialize a user to destroy a session
 	passport.deserializeUser(function(id, done) {
-	  User.findById(id, function(err, user) {
-	  	done(err, user);
+		console.log('about to deserialize');
+	  new User({id: id}).fetch().then(function(user) {
+	  	console.log('in new user creation', user);
+	  	return done(null, user);
+	  }, function(error) {
+	  	console.log('there is an error', error);
+	  	return done(error);
 	  });
+
+	  // User.findById(id, function(err, user) {
+	  // 	done(err, user);
+	  // });
 	});
 
 	// Session set-up for Facebook
@@ -41,36 +51,31 @@ module.exports = function(passport) {
 			// required for asynchonicity
 			process.nextTick(function() {
 				// find the user in the database by facebook user id
-				User.findOne({ 'facebook.id': profile.id }, function(err, user) {
-					// if there is an error, return the error
-					if (err) {
-						return done(err);
-					}
-					// if there is a user with that ID, log-in
-					if (user) {
-						// user found; return user
+				new User({
+					facebookProfileID: profile.id,
+					facebookToken: token,
+					facebookName: profile.name.givenName + ' ' + profile.name.familyName,
+					facebookEmail: profile.emails[0].value
+				}).fetch().then(function(found) {
+					if(found) {
+						console.log('user already exists!');
 						return done(null, user);
-					} else {
-						// create new user
-						var newUser = new User();
+					}
+					else {
+						var newUser = new User({
+							facebookProfileID: profile.id,
+							facebookToken: token,
+							facebookName: profile.name.givenName + ' ' + profile.name.familyName,
+							facebookEmail: profile.emails[0].value
+						});
 
-						// create all facebook attributes for new user
-						newUser.facebook.id    = profile.id;
-	          newUser.facebook.token = token;	                
-	          newUser.facebook.name  = profile.name.givenName + ' ' + profile.name.familyName;
-	          newUser.facebook.email = profile.emails[0].value;
-
-						// save new user to database
-						newUser.save(function(err) {
-							if (err) {
-								throw err;
-							}
-
-							// successfully created and saved new user
+						newUser.save().then(function(newUser) {
+							Users.add(newUser);
+							console.log('user added!!!');
 							return done(null, newUser);
 						});
 					}
-				});
+				})
 			});
 		}
 	));

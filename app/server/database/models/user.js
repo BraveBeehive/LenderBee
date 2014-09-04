@@ -1,7 +1,7 @@
 'use strict';
 
 var bookshelf = require('../database.js');
-var item = require('./item.js');
+var item = require('./user.js');
 
 var User = bookshelf.Model.extend({
 	tableName: 'users',

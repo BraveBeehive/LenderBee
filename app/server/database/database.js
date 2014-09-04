@@ -21,8 +21,10 @@ knex.schema.hasTable('users').then(function(exists) {
   if (!exists) {
     knex.schema.createTable('users', function (table) {
       table.increments('id').primary();
-      table.string('username', 100).unique();
-      table.string('password', 100);
+      table.string('facebookName', 100);
+      table.string('facebookEmail', 100);
+      table.string('facebookToken', 255);
+      table.string('facebookProfileID', 100);
       table.timestamps();
     }).then(function (table) {
       console.log('Created Table USERS: ', table);
