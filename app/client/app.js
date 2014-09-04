@@ -8,11 +8,12 @@
  *
  * Main module of the application.
  */
-var app = angular
+angular
   .module('lenderBeeApp', [
     'lenderbee.searchresults',
     'lenderbee.searchbar',
     'lenderbee.services',
+    'lenderbee.inventory',
     'ngAnimate',
     'ngCookies',
     'ngResource',

@@ -1,3 +1,5 @@
+'use strict';
+
 angular.module('lenderbee.searchresults', ['lenderbee.services'])
 	
 	.controller('searchresultsController', ['$scope', 'searchresultsFact', function($scope, searchresultsFact) {
@@ -20,5 +22,3 @@ angular.module('lenderbee.searchresults', ['lenderbee.services'])
 		*/
 
 	}]);
-
-

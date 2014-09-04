@@ -67,5 +67,5 @@ var isLoggedIn = function(request, response, next) {
 	}
 
 	console.log('not logged in');
-	response.send(200)
+	response.send(200);
 };

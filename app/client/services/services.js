@@ -1,3 +1,5 @@
+'use strict';
+
 angular.module('lenderbee.services', [])
 
 	.factory('searchresultsFact', ['$http', '$location', function($http, $location) {
@@ -8,7 +10,7 @@ angular.module('lenderbee.services', [])
 			// $http ajax call to the server to get searchResults
 			// Returns a promise and then send it over to the controller? Or does the logic have to be in the controller?
 			return $http({
-				method: "GET",
+				method: 'GET',
 				url: '/api/search',
 				data: {itemname: querystr}
 			})
@@ -18,7 +20,7 @@ angular.module('lenderbee.services', [])
 				}
 				this.searchResults = resp.data;
 				$location.path('/searchresults');
-				console.log(resp.data, "this is the response data");
+				console.log(resp.data, 'this is the response data');
 				// return resp.data;
 			});
 		};
@@ -41,22 +43,22 @@ angular.module('lenderbee.services', [])
 			searchResults: [
 				{
 					itemid: 9,
-					itemdescription: "legit power drill",
-					tags: ["powertool", "goodcondition"],
-					distance: .5
+					itemdescription: 'legit power drill',
+					tags: ['powertool', 'goodcondition'],
+					distance: 0.5
 				},
 				{
 					itemid: 25,
-					itemdescription: "Black and Decker Power Drill",
-					tags: ["powertool", "almostnew"],
+					itemdescription: 'Black and Decker Power Drill',
+					tags: ['powertool', 'almostnew'],
 					distance: 1.2
 				},
 				{
 					itemid: 356,
-					itemdescription: "working power drill; low voltage",
-					tags: ["powertool", "savepower"],
-					distance: .3
+					itemdescription: 'working power drill; low voltage',
+					tags: ['powertool', 'savepower'],
+					distance: 0.3
 				}
 			]
-		}
+		};
 	}]);
