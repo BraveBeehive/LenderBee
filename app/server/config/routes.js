@@ -19,8 +19,8 @@ module.exports = function(app, passport) {
 		console.log(request.body);
 		console.log('searching for an item');
   	// insert logic for database query
-  	// util.searchForItemInInventory();
-		response.send(200);
+  	util.searchForItemInInventory(request, response);
+		// response.send(200); // Response to be handled by utility function
 	});
 
 	// routes for managing inventory
