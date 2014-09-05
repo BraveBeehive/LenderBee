@@ -60,6 +60,10 @@ module.exports = function (grunt) {
           '.tmp/styles/{,*/}*.css',
           '<%= yeoman.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
         ]
+      },
+      sass: {
+        files: '**/*.scss',
+        tasks: ['sass']
       }
     },
 
@@ -258,15 +262,15 @@ module.exports = function (grunt) {
         }
       }
     },
-    uglify: {
-      dist: {
-        files: {
-          '<%= yeoman.dist %>/scripts/scripts.js': [
-            '<%= yeoman.dist %>/scripts/scripts.js'
-          ]
-        }
-      }
-    },
+    // uglify: {
+    //   dist: {
+    //     files: {
+    //       '<%= yeoman.dist %>/scripts/scripts.js': [
+    //         '<%= yeoman.dist %>/scripts/scripts.js'
+    //       ]
+    //     }
+    //   }
+    // },
     concat: {
       dist: {}
     },
@@ -391,11 +395,27 @@ module.exports = function (grunt) {
       }
     },
 
-    sass: {                              // Task
-      dist: {                            // Target
-        files: {                         // Dictionary of files
-          'app/client/app.css': 'app/client/app.scss'       // 'destination': 'source'
-        }
+    // sass: {                              // Task
+    //   dist: {                            // Target
+    //     files: {                         // Dictionary of files
+    //       'app/client/app.css': 'app/client/app.scss',       // 'destination': 'source'
+    //       'app/client/inventory/inventory.css': 'app/client/inventory/inventory.scss'
+    //       // Add destination and file manually so that these css/scss stay in the same folder they're originally from.
+    //       // 'app/client/search/searchbar.css': 'app/client/search/searchbar.scss'
+    //       // 'app/client/searchresults/searchresults.css'? 'app/client/searchresults/searchresults.scss'
+    //     }
+    //   }
+    // }
+
+    sass: {
+      dist: {
+        files: [{
+          expand: true,
+          cwd: '<%= yeoman.app %>',
+          src: ['**/*.scss'],
+          dest: '<%= yeoman.app %>',
+          ext: '.css'
+        }]
       }
     }
 
@@ -442,7 +462,7 @@ module.exports = function (grunt) {
     'copy:dist',
     'cdnify',
     'cssmin',
-    'uglify',
+    // 'uglify',
     'filerev',
     'usemin',
     'htmlmin'
