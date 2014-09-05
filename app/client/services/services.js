@@ -8,49 +8,27 @@ angular.module('lenderbee.services', [])
 
 		results.getSearchResults = function(querystr) {
 			// $http ajax call to the server to get searchResults
-			// Returns a promise and then send it over to the controller? Or does the logic have to be in the controller?
-
-			return $http.post('/api/search', {item: querystr})
-			  .success(function(response) {
-			  	console.log(response);
-			  });
-		};
-
-		return {results: results};
-		/* This function call might not be necessary
-		results.sendQuery = function(query) {
-			// Send an ajax post request to query the data back.
 			return $http({
-				method: "POST",
-				url: '/api/something',
-				data: query // Or something related to the Bookshelf ORM
+				method: 'POST',
+				url: '/api/search',
+				data: {item: querystr}
 			})
-			.then(function(resp){
-				console.log(resp, "this is resp");
+			// Returns as promise. As it gets resolved, store the data in results.searchResults
+			.then(function(resp) {
+				results.searchResults = resp.data;
+				console.log(results.searchResults, "this is results.searchResults");
+				if (results.searchResults.length === 0) {
+					results.searchResults = [{item: "No one in the area has that item to lend yet."}]
+				}
+				// console.log(resp.data, 'this is the response data');
+			})
+			// After storage of data, send client to searchresults view
+			.then(function() {
+				$location.path('/searchresults');
 			});
 		};
-		*/
 
-		// return {
-		// 	searchResults: [
-		// 		{
-		// 			itemid: 9,
-		// 			itemdescription: 'legit power drill',
-		// 			tags: ['powertool', 'goodcondition'],
-		// 			distance: 0.5
-		// 		},
-		// 		{
-		// 			itemid: 25,
-		// 			itemdescription: 'Black and Decker Power Drill',
-		// 			tags: ['powertool', 'almostnew'],
-		// 			distance: 1.2
-		// 		},
-		// 		{
-		// 			itemid: 356,
-		// 			itemdescription: 'working power drill; low voltage',
-		// 			tags: ['powertool', 'savepower'],
-		// 			distance: 0.3
-		// 		}
-		// 	]
-		// };
+		// Return the results object
+		return results;
+	
 	}]);

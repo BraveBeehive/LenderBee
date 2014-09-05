@@ -3,7 +3,7 @@
 var util = require('../database/utility.js');
 
 module.exports = function(app, passport) {
-	
+
 	app.use(function(request, response, next) {
 		console.log('A request has been made to the server');
 		next();
@@ -45,8 +45,8 @@ module.exports = function(app, passport) {
 
   // handle the callback after facebook has verified the user
   app.get('/auth/facebook/callback', passport.authenticate('facebook'), function(request, response) {
-  	console.log('user authenticated via facebook');
-  	response.send(200);
+    console.log('user authenticated via facebook');
+    response.send(200);
   });
 
   // handle logout/session end
@@ -59,10 +59,10 @@ module.exports = function(app, passport) {
 
 // Utility functions:
 var isLoggedIn = function(request, response, next) {
-	if (request.isAuthenticated()) {
-		return next();
-	}
+  if (request.isAuthenticated()) {
+    return next();
+  }
 
-	console.log('not logged in');
-	response.send(200);
+  console.log('not logged in');
+  response.send(200);
 };
