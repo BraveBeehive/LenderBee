@@ -395,15 +395,27 @@ module.exports = function (grunt) {
       }
     },
 
-    sass: {                              // Task
-      dist: {                            // Target
-        files: {                         // Dictionary of files
-          'app/client/app.css': 'app/client/app.scss',       // 'destination': 'source'
-          'app/client/inventory/inventory.css': 'app/client/inventory/inventory.scss'
-          // Add destination and file manually so that these css/scss stay in the same folder they're originally from.
-          // 'app/client/search/searchbar.css': 'app/client/search/searchbar.scss'
-          // 'app/client/searchresults/searchresults.css'? 'app/client/searchresults/searchresults.scss'
-        }
+    // sass: {                              // Task
+    //   dist: {                            // Target
+    //     files: {                         // Dictionary of files
+    //       'app/client/app.css': 'app/client/app.scss',       // 'destination': 'source'
+    //       'app/client/inventory/inventory.css': 'app/client/inventory/inventory.scss'
+    //       // Add destination and file manually so that these css/scss stay in the same folder they're originally from.
+    //       // 'app/client/search/searchbar.css': 'app/client/search/searchbar.scss'
+    //       // 'app/client/searchresults/searchresults.css'? 'app/client/searchresults/searchresults.scss'
+    //     }
+    //   }
+    // }
+
+    sass: {
+      dist: {
+        files: [{
+          expand: true,
+          cwd: '<%= yeoman.app %>',
+          src: ['**/*.scss'],
+          dest: '<%= yeoman.app %>/client/public',
+          ext: '.css'
+        }]
       }
     }
 
@@ -435,10 +447,6 @@ module.exports = function (grunt) {
     'autoprefixer',
     'connect:test',
     'karma'
-  ]);
-
-  grunt.registerTask('saas', [
-    'sass'
   ]);
 
   grunt.registerTask('build', [
