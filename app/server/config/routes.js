@@ -16,6 +16,7 @@ module.exports = function(app, passport) {
 
 	// routing for searchbar
 	app.post('/api/search', function(request, response) {
+    console.log('received request from searchbar; item is:');
 		console.log(request.body);
 		console.log('searching for an item');
   	// insert logic for database query

@@ -9,22 +9,14 @@ angular.module('lenderbee.services', [])
 		results.getSearchResults = function(querystr) {
 			// $http ajax call to the server to get searchResults
 			// Returns a promise and then send it over to the controller? Or does the logic have to be in the controller?
-			return $http({
-				method: 'GET',
-				url: '/api/search',
-				data: {itemname: querystr}
-			})
-			.then(function(err, resp) {
-				if (err) {
-					throw err;
-				}
-				this.searchResults = resp.data;
-				$location.path('/searchresults');
-				console.log(resp.data, 'this is the response data');
-				// return resp.data;
-			});
+
+			return $http.post('/api/search', {item: querystr})
+			  .success(function(response) {
+			  	console.log(response);
+			  });
 		};
 
+		return {results: results};
 		/* This function call might not be necessary
 		results.sendQuery = function(query) {
 			// Send an ajax post request to query the data back.
@@ -39,26 +31,26 @@ angular.module('lenderbee.services', [])
 		};
 		*/
 
-		return {
-			searchResults: [
-				{
-					itemid: 9,
-					itemdescription: 'legit power drill',
-					tags: ['powertool', 'goodcondition'],
-					distance: 0.5
-				},
-				{
-					itemid: 25,
-					itemdescription: 'Black and Decker Power Drill',
-					tags: ['powertool', 'almostnew'],
-					distance: 1.2
-				},
-				{
-					itemid: 356,
-					itemdescription: 'working power drill; low voltage',
-					tags: ['powertool', 'savepower'],
-					distance: 0.3
-				}
-			]
-		};
+		// return {
+		// 	searchResults: [
+		// 		{
+		// 			itemid: 9,
+		// 			itemdescription: 'legit power drill',
+		// 			tags: ['powertool', 'goodcondition'],
+		// 			distance: 0.5
+		// 		},
+		// 		{
+		// 			itemid: 25,
+		// 			itemdescription: 'Black and Decker Power Drill',
+		// 			tags: ['powertool', 'almostnew'],
+		// 			distance: 1.2
+		// 		},
+		// 		{
+		// 			itemid: 356,
+		// 			itemdescription: 'working power drill; low voltage',
+		// 			tags: ['powertool', 'savepower'],
+		// 			distance: 0.3
+		// 		}
+		// 	]
+		// };
 	}]);
