@@ -4,6 +4,33 @@ var util = require('../database/utility.js');
 
 module.exports = function(app, passport) {
   
+  var dummyData = [
+    {
+      name: 'spork',
+      owner: 'Tommy', 
+      possessor: 'Tommy',
+      isRequested: true
+    },
+    {
+      name: 'headphones',
+      owner: 'Tommy', 
+      possessor: 'Jonathan',
+      isRequested: false
+    },
+    {
+      name: 'wrench',
+      owner: 'Collin', 
+      possessor: 'Tommy',
+      isRequested: false
+    },
+    {
+      name: 'bike',
+      owner: 'Tommy', 
+      possessor: 'Tommy',
+      isRequested: false
+    }
+  ];
+
   // just for testing; checks if any request has been made to the server
   // feel free to comment out in later builds
   app.use(function(request, response, next) {
@@ -22,7 +49,8 @@ module.exports = function(app, passport) {
   // routing for user to add item to his/her inventory
   app.post('/api/inventory/add', function(request, response) {
     console.log('adding item to inventory:', request.body.item);
-    util.addItemToInventory(request, response);
+    dummyData.push(request.body.item);
+    // util.addItemToInventory(request, response);
   });
 
   // routing for user to remove item to his/her inventory
@@ -52,33 +80,8 @@ module.exports = function(app, passport) {
   // routing for user to see inventory
   app.get('/api/inventory/show', function(request, response) {
     console.log('showing entire inventory');
-    response.send(200, [
-        {
-          name: 'spork',
-          owner: 'Tommy', 
-          possessor: 'Tommy',
-          isRequested: true
-        },
-        {
-          name: 'headphones',
-          owner: 'Tommy', 
-          possessor: 'Jonathan',
-          isRequested: false
-        },
-        {
-          name: 'wrench',
-          owner: 'Collin', 
-          possessor: 'Tommy',
-          isRequested: false
-        },
-        {
-          name: 'bike',
-          owner: 'Tommy', 
-          possessor: 'Tommy',
-          isRequested: false
-        }
-      ]);
 
+    response.send(200, dummyData);
     // util.getInventory(request, response);
   });
 

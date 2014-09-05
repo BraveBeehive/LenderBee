@@ -21,7 +21,6 @@ angular.module('lenderbee.inventory',[])
         data: {'user': Session.user}
       }).then(function(response, error) {
         if (error) { throw error; }
-        console.log('response.data',response.data);
         inventory.items = response.data;
       });;
     }
@@ -37,7 +36,14 @@ angular.module('lenderbee.inventory',[])
                     };
       console.log('adding:',newItem);
       //TEMP: push item directly to inventory items array.
-      inventory.items.push(newItem);
+      // inventory.items.push(newItem);
+
+      return $http({
+        method: 'POST',
+        url: '/api/inventory/add',
+        data: {'item': newItem}
+      });
+
     };
     // Borrow an item; just redirects to /searchbar view.
     inventory.borrow = function(){
