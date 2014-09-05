@@ -8,7 +8,8 @@
   }
 </style>
 <div class="inventory">
-  <button ng-click="add(prompt('What item are you willing to lend?'))">add</button>
+  <button ng-click="refresh()">refresh</button>
+  <button ng-click="add()">add</button>
   <button ng-click="borrow()">borrow</button>
   <div class="item" ng-repeat="item in items" ng-controller="ItemCtrl">
     <button ng-click="lend(item)" ng-show="item.isRequested">lend</button>

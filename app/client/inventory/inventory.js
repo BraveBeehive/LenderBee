@@ -14,45 +14,17 @@ angular.module('lenderbee.inventory',[])
   .factory('Inventory', ['Session', '$http', '$location', function(Session, $http, $location) {
     var inventory = {};
     // GET user's inventory via $http server request; returns a promise.
-    inventory.refresh = function(user) {
+    inventory.refresh = function() {
       return $http({
         method: 'GET',
-        url: '/inventory',
-        data: {'user': user}
-      })
-      .then(function(err, response) {
-        if (err) { throw err; }
+        url: 'api/inventory/show',
+        data: {'user': Session.user}
+      }).then(function(response, error) {
+        if (error) { throw error; }
+        console.log('response.data',response.data);
         inventory.items = response.data;
-        console.log('inventory:', inventory.items);
-      });
+      });;
     }
-    // Dummy data.
-    inventory.items = [
-        {
-          name: 'spork',
-          owner: 'Tommy', 
-          possessor: 'Tommy',
-          isRequested: true
-        },
-        {
-          name: 'headphones',
-          owner: 'Tommy', 
-          possessor: 'Jonathan',
-          isRequested: false
-        },
-        {
-          name: 'wrench',
-          owner: 'Collin', 
-          possessor: 'Tommy',
-          isRequested: false
-        },
-        {
-          name: 'bike',
-          owner: 'Tommy', 
-          possessor: 'Tommy',
-          isRequested: false
-        }
-      ];
     
     // Item-User interactions; should use $http server requests eventually.
     // Add item to inventory.
@@ -93,11 +65,13 @@ angular.module('lenderbee.inventory',[])
     return inventory;
   }])
   .controller('InventoryCtrl', function($scope, Inventory, Session){
-    // console.log('InventoryCtrl loaded!');
-    $scope.items = Inventory.items;
-    $scope.add = Inventory.add;
+    $scope.refresh = function(){Inventory.refresh().then(function(){
+      $scope.items = Inventory.items;
+    });};
+    $scope.add = function(){Inventory.add(prompt('What would you like to lend?'));};
     $scope.borrow = Inventory.borrow;
     $scope.currentUser = Session.user;
+    $scope.refresh();
   })
   .controller('ItemCtrl', function($scope, Inventory){
     $scope.delete = Inventory.delete;    

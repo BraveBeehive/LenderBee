@@ -52,6 +52,33 @@ module.exports = function(app, passport) {
   // routing for user to see inventory
   app.get('/api/inventory/show', function(request, response) {
     console.log('showing entire inventory');
+    response.send(200, [
+        {
+          name: 'spork',
+          owner: 'Tommy', 
+          possessor: 'Tommy',
+          isRequested: true
+        },
+        {
+          name: 'headphones',
+          owner: 'Tommy', 
+          possessor: 'Jonathan',
+          isRequested: false
+        },
+        {
+          name: 'wrench',
+          owner: 'Collin', 
+          possessor: 'Tommy',
+          isRequested: false
+        },
+        {
+          name: 'bike',
+          owner: 'Tommy', 
+          possessor: 'Tommy',
+          isRequested: false
+        }
+      ]);
+
     // util.getInventory(request, response);
   });
 
