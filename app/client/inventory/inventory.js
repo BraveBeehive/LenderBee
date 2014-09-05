@@ -9,45 +9,99 @@
  */
 
 angular.module('lenderbee.inventory',[])
-  .factory('Inventory', function(){
-    // console.log('Inventory factory loaded!');
-    return [
+  // Temp value to indicate current authenticated user.
+  .value('Session', {user: 'Tommy'})
+  .factory('Inventory', ['Session', '$http', '$location', function(Session, $http, $location) {
+    var inventory = {};
+    // GET user's inventory via $http server request; returns a promise.
+    inventory.refresh = function(user) {
+      return $http({
+        method: 'GET',
+        url: '/inventory',
+        data: {'user': user}
+      })
+      .then(function(err, response) {
+        if (err) { throw err; }
+        inventory.items = response.data;
+        console.log('inventory:', inventory.items);
+      });
+    }
+    // Dummy data.
+    inventory.items = [
         {
           name: 'spork',
           owner: 'Tommy', 
           possessor: 'Tommy',
           isRequested: true
-
+        },
+        {
+          name: 'headphones',
+          owner: 'Tommy', 
+          possessor: 'Jonathan',
+          isRequested: false
+        },
+        {
+          name: 'wrench',
+          owner: 'Collin', 
+          possessor: 'Tommy',
+          isRequested: false
         },
         {
           name: 'bike',
           owner: 'Tommy', 
           possessor: 'Tommy',
           isRequested: false
-        },
-        {
-          name: 'headphones',
-          owner: 'Tommy', 
-          possessor: 'Jonathan',
-          isRequested: false
-        },
-        {
-          name: 'headphones',
-          owner: 'Collin', 
-          possessor: 'Jonathan',
-          isRequested: false
         }
       ];
-  })
-  .controller('InventoryCtrl', function($scope, Inventory){
+    
+    // Item-User interactions; should use $http server requests eventually.
+    // Add item to inventory.
+    inventory.add = function(name){
+      var newItem = {
+                      name: name,
+                      owner: Session.user, 
+                      possessor: Session.user,
+                      isRequested: false
+                    };
+      console.log('adding:',newItem);
+      //TEMP: push item directly to inventory items array.
+      inventory.items.push(newItem);
+    };
+    // Borrow an item; just redirects to /searchbar view.
+    inventory.borrow = function(){
+      $location.path('/searchbar');
+    };
+    // Delete an item. (owner === user === possessor)
+    inventory.delete = function(item){
+      console.log('deleting:',item.name);
+      // TEMP: find the item in inventory items array and splice it out.
+      inventory.items.splice(inventory.items.indexOf(item), 1);
+    };
+    // Lend a requested item. (owner === user === possessor)
+    inventory.lend = function(item){
+      console.log('lending:',item.name);
+    };
+    // Return a borrowed item. (owner !== user === possessor)
+    inventory.return = function(item){
+      console.log('returning:',item.name)
+    };
+    // Demand a lent item back. (owner === user !== possessor)
+    inventory.demand = function(item){
+      console.log('demanding:',item.name)
+    };
+
+    return inventory;
+  }])
+  .controller('InventoryCtrl', function($scope, Inventory, Session){
     // console.log('InventoryCtrl loaded!');
-    $scope.inventory = Inventory;
-    $scope.add = function(){console.log('add');};
-    $scope.borrow = function(){console.log('borrow');};
-    $scope.currentUser = 'Tommy';
+    $scope.items = Inventory.items;
+    $scope.add = Inventory.add;
+    $scope.borrow = Inventory.borrow;
+    $scope.currentUser = Session.user;
   })
-  .controller('ItemCtrl', function($scope){
-    $scope.lend = function(){console.log('lend');};
-    $scope.return = function(){console.log('return');};
-    $scope.demand = function(){console.log('demand');};    
+  .controller('ItemCtrl', function($scope, Inventory){
+    $scope.delete = Inventory.delete;    
+    $scope.lend = Inventory.lend;
+    $scope.return = Inventory.return;
+    $scope.demand = Inventory.demand;    
   });
