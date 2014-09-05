@@ -1,5 +1,4 @@
 'use strict';
-
 // Base set-up where packages, modules, and other files are required.
 
 // Require Express for server configuration, routing, etc.
@@ -17,14 +16,17 @@ var morgan = require('morgan');
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 
+//Bookshelf and Knex
+var bookshelf = require('./database/database.js')
+var pg = require('pg');
+var conString = "postgres://lenderbee:lenderbee@localhost:7432/lenderbee";
+var client = new pg.Client(conString);
+//connect to database;
+client.connect();
+
 // Define app using Express and port for securing server connection
 var app = express();
 var port = process.env.PORT || 7432;
-
-// TO BE DELETED; JUST FOR TESTING
-// var mongoose = require('mongoose');
-// var configDB = require('./database/testDatabase.js');
-// mongoose.connect(configDB.url);
 
 // configuration (to be used later) ================================
 require('./config/passport')(passport); // pass passport for configuration
@@ -49,8 +51,9 @@ app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions after successful authentication
 app.use(flash()); 
 
-// Set up static file-routing
-app.use(express.static(__dirname + '/app/client'));
+// Set up static file-routing (needs to be relative path to base index.html from /config/routes.js)
+app.use(express.static(__dirname + '../../client')); 
+app.use('/bower_components', express.static(__dirname + '../../../bower_components'));
 
 // Set up routes to be prefixed with API
 // app.use('/api', allRoutes);
@@ -61,3 +64,21 @@ require('./config/routes.js')(app, passport);
 // Open server connection
 app.listen(port);
 console.log('Server now open and listening on port:', port);
+
+//TEST QUERIES
+// var query = client.query('select * from users');
+// query.on('row', function(row, result) {
+//   result.addRow(row);
+// });
+
+// var query = client.query('select * from inventory');
+// query.on('row', function(row, result) {
+//   result.addRow(row);
+// });
+
+
+// query.on('end', function(result) {
+//   console.log(JSON.stringify(result.rows, null, ' '));
+//   client.end();
+// })
+//TEST QUERY END
