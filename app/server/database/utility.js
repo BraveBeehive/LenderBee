@@ -73,18 +73,23 @@ exports.searchForItemInInventory = function(req, res) {
 	//store the search item value
 	// var reqSearchValue = req.value;
 	//select all from inventory where the item is req.value;
-	new Item({item: 'wrench'})
+	console.log('in searchForItemInInventory');
+	console.log(req.body);
+	new Item({item: req.body.item})
+	.where({item: req.body.item})
 	//search for the item
-	.fetch()
+	.fetchAll()
 	.then(function(item) {
-		//if theres no item
+		console.log('received item', item, 'searching now');
 		if(!item) {
 			console.log('NO ITEM FOUND');
+			res.send(200, false);
 		}
 		//if there is item
 		else {
 			console.log('ITEM FOUND', item.attributes);
+			res.send(200, item);
 		}
 	})
-	console.log('SEARCH FUNCTION FIRED OFF');
+	// console.log('SEARCH FUNCTION FIRED OFF');
 };
