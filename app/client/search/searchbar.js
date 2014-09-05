@@ -9,22 +9,26 @@ angular.module('lenderbee.searchbar', ['lenderbee.services'])
 
 		// searchItem function should call the getSearchResults method on the searchresults factory.
 		// Might be some syntactical issues, but for the most part, the logic is on track.
-		$scope.searchItem = function(querystr) {
-			$scope.loading = true;
-			console.log('this is the querystr: ', querystr);
 
-			// searchresultsFact
-			// 	.getSearchResults(querystr)
-			// 	.success(function(_, status) {
-			// 		$scope.loading = false;
-			// 		// $location.path('/searchresults');
-			// 	})
-			// 	.error(function() {
-			// 		$scope.loading = false;
-			// 	});
+		$scope.searchItem = searchresultsFact.getSearchResults;
+		console.log(searchresultsFact, "this is searchresultsFact");
 
-			$location.path('/searchresults');	
+		// $scope.searchItem = function(querystr) {
+		// 	$scope.loading = true;
+		// 	console.log('this is the querystr: ', querystr);
 
-		};
+		// 	// searchresultsFact
+		// 	// 	.getSearchResults(querystr)
+		// 	// 	.success(function(_, status) {
+		// 	// 		$scope.loading = false;
+		// 	// 		// $location.path('/searchresults');
+		// 	// 	})
+		// 	// 	.error(function() {
+		// 	// 		$scope.loading = false;
+		// 	// 	});
+
+		// 	$location.path('/searchresults');	
+
+		// };
 
 	}]);

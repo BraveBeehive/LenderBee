@@ -50,7 +50,8 @@ app.use(passport.session()); // persistent login sessions after successful authe
 app.use(flash()); 
 
 // Set up static file-routing
-app.use(express.static(__dirname + '/app/client'));
+app.use(express.static(__dirname + '../../client'));
+app.use('/bower_components', express.static(__dirname + '../../../bower_components'));
 
 // Set up routes to be prefixed with API
 // app.use('/api', allRoutes);
