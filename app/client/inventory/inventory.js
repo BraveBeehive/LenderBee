@@ -19,10 +19,9 @@ angular.module('lenderbee.inventory',[])
         method: 'GET',
         url: 'api/inventory/show',
         data: {'user': Session.user}
-      }).then(function(response, error) {
-        if (error) { throw error; }
+      }).then(function(response, error) {if (error) { throw error; }
         inventory.items = response.data;
-      });;
+      });
     }
     
     // Item-User interactions; should use $http server requests eventually.
@@ -34,16 +33,11 @@ angular.module('lenderbee.inventory',[])
                       possessor: Session.user,
                       isRequested: false
                     };
-      console.log('adding:',newItem);
-      //TEMP: push item directly to inventory items array.
-      // inventory.items.push(newItem);
-
       return $http({
         method: 'POST',
         url: '/api/inventory/add',
         data: {'item': newItem}
       });
-
     };
     // Borrow an item; just redirects to /searchbar view.
     inventory.borrow = function(){
@@ -71,10 +65,17 @@ angular.module('lenderbee.inventory',[])
     return inventory;
   }])
   .controller('InventoryCtrl', function($scope, Inventory, Session){
+    // After GET resolves, can assign inventory items to scope.
     $scope.refresh = function(){Inventory.refresh().then(function(){
       $scope.items = Inventory.items;
     });};
-    $scope.add = function(){Inventory.add(prompt('What would you like to lend?'));};
+    // After POST resolves, refresh inventory items.
+    $scope.add = function(){
+      Inventory.add(prompt('What would you like to lend?')).then(
+      // Note: .then(successCallback(value), errorCallback(reason))
+        $scope.refresh
+      );
+    };
     $scope.borrow = Inventory.borrow;
     $scope.currentUser = Session.user;
     $scope.refresh();

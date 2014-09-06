@@ -50,6 +50,7 @@ module.exports = function(app, passport) {
   app.post('/api/inventory/add', function(request, response) {
     console.log('adding item to inventory:', request.body.item);
     dummyData.push(request.body.item);
+    response.status(200).send(request.body.item);
     // util.addItemToInventory(request, response);
   });
 
@@ -80,8 +81,7 @@ module.exports = function(app, passport) {
   // routing for user to see inventory
   app.get('/api/inventory/show', function(request, response) {
     console.log('showing entire inventory');
-
-    response.send(200, dummyData);
+    response.status(200).send(dummyData);
     // util.getInventory(request, response);
   });
 
