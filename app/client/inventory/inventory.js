@@ -13,6 +13,7 @@ angular.module('lenderbee.inventory',[])
   .value('Session', {user: 'Tommy'})
   .factory('Inventory', ['Session', '$http', '$location', function(Session, $http, $location) {
     var inventory = {};
+    // Item-User interactions; should use $http server requests eventually.
     // GET user's inventory via $http server request; returns a promise.
     inventory.refresh = function() {
       return $http({
@@ -23,8 +24,6 @@ angular.module('lenderbee.inventory',[])
         inventory.items = response.data;
       });
     }
-    
-    // Item-User interactions; should use $http server requests eventually.
     // Add item to inventory.
     inventory.add = function(name){
       var newItem = {
@@ -39,15 +38,13 @@ angular.module('lenderbee.inventory',[])
         data: {'item': newItem}
       });
     };
-    // Borrow an item; just redirects to /searchbar view.
-    inventory.borrow = function(){
-      $location.path('/searchbar');
-    };
     // Delete an item. (owner === user === possessor)
     inventory.delete = function(item){
-      console.log('deleting:',item.name);
-      // TEMP: find the item in inventory items array and splice it out.
-      inventory.items.splice(inventory.items.indexOf(item), 1);
+      return $http({
+        method: 'POST',
+        url: '/api/inventory/remove',
+        data: {'item': item}
+      });
     };
     // Lend a requested item. (owner === user === possessor)
     inventory.lend = function(item){
@@ -60,6 +57,10 @@ angular.module('lenderbee.inventory',[])
     // Demand a lent item back. (owner === user !== possessor)
     inventory.demand = function(item){
       console.log('demanding:',item.name)
+    };
+    // Borrow an item; just redirects to /searchbar view.
+    inventory.borrow = function(){
+      $location.path('/searchbar');
     };
 
     return inventory;
@@ -81,7 +82,10 @@ angular.module('lenderbee.inventory',[])
     $scope.refresh();
   })
   .controller('ItemCtrl', function($scope, Inventory){
-    $scope.delete = Inventory.delete;    
+    $scope.delete = function(){
+      console.log('about to delete',$scope.item.name);
+      Inventory.delete($scope.item).then($scope.$parent.refresh);
+    };    
     $scope.lend = Inventory.lend;
     $scope.return = Inventory.return;
     $scope.demand = Inventory.demand;    

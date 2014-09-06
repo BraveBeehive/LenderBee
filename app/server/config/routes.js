@@ -6,24 +6,28 @@ module.exports = function(app, passport) {
   
   var dummyData = [
     {
+      id: 0,
       name: 'spork',
       owner: 'Tommy', 
       possessor: 'Tommy',
       isRequested: true
     },
     {
+      id: 1,
       name: 'headphones',
       owner: 'Tommy', 
       possessor: 'Jonathan',
       isRequested: false
     },
     {
+      id: 2,
       name: 'wrench',
       owner: 'Collin', 
       possessor: 'Tommy',
       isRequested: false
     },
     {
+      id: 3,
       name: 'bike',
       owner: 'Tommy', 
       possessor: 'Tommy',
@@ -49,15 +53,19 @@ module.exports = function(app, passport) {
   // routing for user to add item to his/her inventory
   app.post('/api/inventory/add', function(request, response) {
     console.log('adding item to inventory:', request.body.item);
-    dummyData.push(request.body.item);
-    response.status(200).send(request.body.item);
     // util.addItemToInventory(request, response);
+    request.body.item.id = dummyData.length;
+    dummyData.push(request.body.item);
+    response.status(201).send(request.body.item);
   });
 
   // routing for user to remove item to his/her inventory
   app.post('/api/inventory/remove', function(request, response) {
-    console.log('removing item from inventory:', request.body.item);
-    util.removeItemFromInventory(request, response);
+    console.log('removing item from inventory', request.body.item); 
+    // util.removeItemFromInventory(request, response);
+    console.log('dummyData pre-deletion for reference:',dummyData);   
+    dummyData.splice(request.body.item.id, 1, null);
+    response.status(204).send(); //204: no content
   });
 
   // routing for user to lend item to another user
@@ -81,8 +89,8 @@ module.exports = function(app, passport) {
   // routing for user to see inventory
   app.get('/api/inventory/show', function(request, response) {
     console.log('showing entire inventory');
-    response.status(200).send(dummyData);
     // util.getInventory(request, response);
+    response.status(200).send(dummyData.filter(function(item){return item!==null;}));
   });
 
   // USER AUTHENTICATION AND LOGOUT

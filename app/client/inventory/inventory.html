@@ -11,11 +11,11 @@
   <button ng-click="refresh()">refresh</button>
   <button ng-click="add()">add</button>
   <button ng-click="borrow()">borrow</button>
-  <div class="item" ng-repeat="item in items" ng-controller="ItemCtrl">
-    <button ng-click="lend(item)" ng-show="item.isRequested">lend</button>
-    <button ng-click="demand(item)" ng-show="item.owner === currentUser && item.possessor !== currentUser">demand</button>
-    <button ng-click="delete(item)" ng-show="!item.isRequested && item.owner === currentUser && item.possessor === currentUser">delete</button>
-    <button ng-click="return(item)" ng-show="item.owner !== currentUser">return</button>
+  <div class="item" ng-model="item" ng-repeat="item in items" ng-controller="ItemCtrl">
+    <button ng-click="lend()" ng-show="item.isRequested">lend</button>
+    <button ng-click="demand()" ng-show="item.owner === currentUser && item.possessor !== currentUser">demand</button>
+    <button ng-click="delete()" ng-show="!item.isRequested && item.owner === currentUser && item.possessor === currentUser">delete</button>
+    <button ng-click="return()" ng-show="item.owner !== currentUser">return</button>
     {{ item.possessor }} has {{ item.owner }}'s {{ item.name }}.
   </div>
 </div>
