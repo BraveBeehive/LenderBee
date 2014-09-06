@@ -16,9 +16,9 @@ angular.module('lenderbee.services', [])
 			// Returns as promise. As it gets resolved, store the data in results.searchResults
 			.then(function(resp) {
 				results.searchResults = resp.data;
-				console.log(results.searchResults, "this is results.searchResults");
+				console.log(results.searchResults, 'this is results.searchResults');
 				if (results.searchResults.length === 0) {
-					results.searchResults = [{item: "No one in the area has that item to lend yet."}]
+					results.searchResults = [{item: 'No one in the area has that item to lend yet.'}];
 				}
 				// console.log(resp.data, 'this is the response data');
 			})

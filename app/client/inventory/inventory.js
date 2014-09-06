@@ -23,7 +23,7 @@ angular.module('lenderbee.inventory',[])
       }).then(function(response, error) {if (error) { throw error; }
         inventory.items = response.data;
       });
-    }
+    };
     // Add item to inventory.
     inventory.add = function(name){
       var newItem = {
@@ -52,11 +52,11 @@ angular.module('lenderbee.inventory',[])
     };
     // Return a borrowed item. (owner !== user === possessor)
     inventory.return = function(item){
-      console.log('returning:',item.name)
+      console.log('returning:',item.name);
     };
     // Demand a lent item back. (owner === user !== possessor)
     inventory.demand = function(item){
-      console.log('demanding:',item.name)
+      console.log('demanding:',item.name);
     };
     // Borrow an item; just redirects to /searchbar view.
     inventory.borrow = function(){
@@ -72,7 +72,7 @@ angular.module('lenderbee.inventory',[])
     });};
     // After POST resolves, refresh inventory items.
     $scope.add = function(){
-      Inventory.add(prompt('What would you like to lend?')).then(
+      Inventory.add(window.prompt('What would you like to lend?')).then(
       // Note: .then(successCallback(value), errorCallback(reason))
         $scope.refresh
       );
@@ -83,7 +83,6 @@ angular.module('lenderbee.inventory',[])
   })
   .controller('ItemCtrl', function($scope, Inventory){
     $scope.delete = function(){
-      console.log('about to delete',$scope.item.name);
       Inventory.delete($scope.item).then($scope.$parent.refresh);
     };    
     $scope.lend = Inventory.lend;

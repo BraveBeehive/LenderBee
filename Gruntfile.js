@@ -118,12 +118,13 @@ module.exports = function (grunt) {
     jshint: {
       options: {
         jshintrc: '.jshintrc',
-        reporter: require('jshint-stylish')
+        reporter: require('jshint-stylish'),
+        // ignore: ['node_modules/*','bower_components']
       },
       all: {
         src: [
           'Gruntfile.js',
-          '**/*.js',
+          'app/**/*.js',
           '!**/*Spec.js'
         ]
       },
