@@ -32,9 +32,9 @@ angular.module('lenderbee.services', [])
 	
 	}])
 
-	.factory('signup', ['$http', '$location', '$window', function($http, $location, $window) {
-		var signup = function(path) {
-			$location.path(path);
+	.factory('signup', ['$http', '$window', function($http, $window) {
+		var signup = function() {
+			$window.open('/auth/facebook');
 		}
 
 		return {

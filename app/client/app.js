@@ -31,7 +31,8 @@ var app = angular
         controller: 'searchresultsController'
       })
       .when('/searchresultsnone', {
-        templateUrl: 'searchresultsnone/searchresultsnone.html'
+        templateUrl: 'searchresultsnone/searchresultsnone.html',
+        controller: 'searchresultsController'
       })
       .when('/searchbar', {
         templateUrl: 'search/searchbar.html',

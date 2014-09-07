@@ -17,7 +17,7 @@ describe('Controller: searchresultsController', function () {
   }));
 
   it('should return an object ', function () {
-    expect(typeof(scope.data)).toEqual("object");
+    expect(typeof(scope.data)).toEqual('object');
   });
 
   it('should contain an item description property', function() {
