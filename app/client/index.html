@@ -14,6 +14,24 @@
     <link rel="stylesheet" href="../../dist/styles/main.616ae68b.css">
     <link rel="stylesheet" href="app.css">
     <!-- endbuild -->
+    <style type="text/css">
+      header{
+        margin: 1em; 
+      }
+      .bee{
+        margin-left: 1em;
+        margin-right: 1em;
+        height: 3em;
+      }
+      .flipHorizontal{
+        -moz-transform: scaleX(-1);
+        -o-transform: scaleX(-1);
+        -webkit-transform: scaleX(-1);
+        transform: scaleX(-1);
+        filter: FlipH;
+        -ms-filter: "FlipH";
+      }
+    </style>
   </head>
   <body ng-app="lenderBeeApp">
     <!--[if lt IE 7]>
@@ -21,7 +39,7 @@
     <![endif]-->
 
     <!-- Add your site or application content here -->
-    <div class="container">
+    <div class="container" align="center">
 <!--       <div class="header">
         <ul class="nav nav-pills pull-right">
           <li class="active"><a ng-href="#">Home</a></li>
@@ -31,25 +49,10 @@
         <h3 class="text-muted">lenderBee</h3>
       </div>
  -->
-<style type="text/css">
-  header{
-    margin: 1em; 
-  }
-  .bee{
-    margin-left: 1em;
-    margin-right: 1em;
-    height: 3em;
-  }
-  .flipHorizontal{
-    -moz-transform: scaleX(-1);
-    -o-transform: scaleX(-1);
-    -webkit-transform: scaleX(-1);
-    transform: scaleX(-1);
-    filter: FlipH;
-    -ms-filter: "FlipH";
-  }
-</style>
-      <header><img class="bee" src="bee.png">LenderBee<img class="bee flipHorizontal" src="bee.png"></header>
+      <header align="center">
+        <img class="bee" src="bee.png">LenderBee<img class="bee flipHorizontal" src="bee.png">
+      </header>
+      
       <div ng-view=""></div>
 
 <!--       <div class="footer">

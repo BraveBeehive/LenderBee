@@ -30,6 +30,9 @@ var app = angular
         templateUrl: 'searchresults/searchresults.html',
         controller: 'searchresultsController'
       })
+      .when('/searchresultsnone', {
+        templateUrl: 'searchresultsnone/searchresultsnone.html'
+      })
       .when('/searchbar', {
         templateUrl: 'search/searchbar.html',
         controller: 'searchbarController'

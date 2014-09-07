@@ -17,15 +17,14 @@ angular.module('lenderbee.services', [])
 			.then(function(resp) {
 				results.searchResults = resp.data;
 				console.log(results.searchResults, "this is results.searchResults");
-				// if (results.searchResults.length === 0) {
-				// 	results.searchResults = [{item: "No one in the area has that item to lend yet."}]
-				// }
+				if (results.searchResults.length === 0) {
+					$location.path('/searchresultsnone');
+				}
+				else {
+					$location.path('/searchresults');
+				}
 				// console.log(resp.data, 'this is the response data');
 			})
-			// After storage of data, send client to searchresults view
-			.then(function() {
-				$location.path('/searchresults');
-			});
 		};
 
 		// Return the results object
