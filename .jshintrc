@@ -13,12 +13,13 @@
   "quotmark": "single",
   "regexp": true,
   "undef": true,
-  "unused": true, //should be true, but temporarily disabled.
+  "unused": false, //should be true, but temporarily disabled.
   "strict": true,
   "trailing": true,
   "smarttabs": true,
   "white": true,
   "globals": {
-    "angular": false //prevents JSHint from throwing a fit about 'undefined' angular.
+    "angular": false, //stop JSHint throwing a fit about 'undefined' angular variable.
+    "window": false //stops JSHint throwing a fit about 'undefined' window variable. 
   }
 }

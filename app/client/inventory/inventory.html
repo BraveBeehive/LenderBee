@@ -1,10 +1,21 @@
-<div ng-model="inventory">
+<style type="text/css">
+  .inventory .item{
+    margin: .5em; 
+    margin-left: 0;
+  }
+  .inventory button{
+    width: 5em;
+  }
+</style>
+<div class="inventory">
+  <button ng-click="refresh()">refresh</button>
   <button ng-click="add()">add</button>
   <button ng-click="borrow()">borrow</button>
-  <div ng-repeat="item in inventory" ng-controller="ItemCtrl">
-    {{ item.possessor }} has {{ item.owner }}'s {{ item.name }}.
+  <div class="item" ng-model="item" ng-repeat="item in items" ng-controller="ItemCtrl">
     <button ng-click="lend()" ng-show="item.isRequested">lend</button>
     <button ng-click="demand()" ng-show="item.owner === currentUser && item.possessor !== currentUser">demand</button>
+    <button ng-click="delete()" ng-show="!item.isRequested && item.owner === currentUser && item.possessor === currentUser">delete</button>
     <button ng-click="return()" ng-show="item.owner !== currentUser">return</button>
+    {{ item.possessor }} has {{ item.owner }}'s {{ item.name }}.
   </div>
 </div>

@@ -5,7 +5,7 @@ var FacebookStrategy = require('passport-facebook').Strategy;
 
 // load up the user model (from the database)
 var User = require('../database/models/user.js');
-var Users = require('../database/collections/users.js')
+var Users = require('../database/collections/users.js');
 
 // require authorization variables for Facebook
 var configAuth = require('./auth.js');
@@ -75,7 +75,7 @@ module.exports = function(passport) {
 							return done(null, newUser);
 						});
 					}
-				})
+				});
 			});
 		}
 	));

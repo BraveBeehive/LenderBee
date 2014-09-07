@@ -9,45 +9,83 @@
  */
 
 angular.module('lenderbee.inventory',[])
-  .factory('Inventory', function(){
-    // console.log('Inventory factory loaded!');
-    return [
-        {
-          name: 'spork',
-          owner: 'Tommy', 
-          possessor: 'Tommy',
-          isRequested: true
+  // Temp value to indicate current authenticated user.
+  .value('Session', {user: 'Tommy'})
+  .factory('Inventory', ['Session', '$http', '$location', function(Session, $http, $location) {
+    var inventory = {};
+    // Item-User interactions; should use $http server requests eventually.
+    // GET user's inventory via $http server request; returns a promise.
+    inventory.refresh = function() {
+      return $http({
+        method: 'GET',
+        url: 'api/inventory/show',
+        data: {'user': Session.user}
+      }).then(function(response, error) {if (error) { throw error; }
+        inventory.items = response.data;
+      });
+    };
+    // Add item to inventory.
+    inventory.add = function(name){
+      var newItem = {
+                      name: name,
+                      owner: Session.user, 
+                      possessor: Session.user,
+                      isRequested: false
+                    };
+      return $http({
+        method: 'POST',
+        url: '/api/inventory/add',
+        data: {'item': newItem}
+      });
+    };
+    // Delete an item. (owner === user === possessor)
+    inventory.delete = function(item){
+      return $http({
+        method: 'POST',
+        url: '/api/inventory/remove',
+        data: {'item': item}
+      });
+    };
+    // Lend a requested item. (owner === user === possessor)
+    inventory.lend = function(item){
+      console.log('lending:',item.name);
+    };
+    // Return a borrowed item. (owner !== user === possessor)
+    inventory.return = function(item){
+      console.log('returning:',item.name);
+    };
+    // Demand a lent item back. (owner === user !== possessor)
+    inventory.demand = function(item){
+      console.log('demanding:',item.name);
+    };
+    // Borrow an item; just redirects to /searchbar view.
+    inventory.borrow = function(){
+      $location.path('/searchbar');
+    };
 
-        },
-        {
-          name: 'bike',
-          owner: 'Tommy', 
-          possessor: 'Tommy',
-          isRequested: false
-        },
-        {
-          name: 'headphones',
-          owner: 'Tommy', 
-          possessor: 'Jonathan',
-          isRequested: false
-        },
-        {
-          name: 'headphones',
-          owner: 'Collin', 
-          possessor: 'Jonathan',
-          isRequested: false
-        }
-      ];
+    return inventory;
+  }])
+  .controller('InventoryCtrl', function($scope, Inventory, Session){
+    // After GET resolves, can assign inventory items to scope.
+    $scope.refresh = function(){Inventory.refresh().then(function(){
+      $scope.items = Inventory.items;
+    });};
+    // After POST resolves, refresh inventory items.
+    $scope.add = function(){
+      Inventory.add(window.prompt('What would you like to lend?')).then(
+      // Note: .then(successCallback(value), errorCallback(reason))
+        $scope.refresh
+      );
+    };
+    $scope.borrow = Inventory.borrow;
+    $scope.currentUser = Session.user;
+    $scope.refresh();
   })
-  .controller('InventoryCtrl', function($scope, Inventory){
-    // console.log('InventoryCtrl loaded!');
-    $scope.inventory = Inventory;
-    $scope.add = function(){console.log('add');};
-    $scope.borrow = function(){console.log('borrow');};
-    $scope.currentUser = 'Tommy';
-  })
-  .controller('ItemCtrl', function($scope){
-    $scope.lend = function(){console.log('lend');};
-    $scope.return = function(){console.log('return');};
-    $scope.demand = function(){console.log('demand');};    
+  .controller('ItemCtrl', function($scope, Inventory){
+    $scope.delete = function(){
+      Inventory.delete($scope.item).then($scope.$parent.refresh);
+    };    
+    $scope.lend = Inventory.lend;
+    $scope.return = Inventory.return;
+    $scope.demand = Inventory.demand;    
   });

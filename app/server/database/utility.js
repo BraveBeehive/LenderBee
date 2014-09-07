@@ -4,7 +4,7 @@ var bookshelf = require('./database.js');
 // var request = require('request');
 var Item = require('./models/item.js');
 var User = require('./models/user.js');
-var Items = require('./collections/items.js')
+var Items = require('./collections/items.js');
 var Users = require('./collections/users.js');
 
 exports.addItemToInventory = function(req, res) {
@@ -29,7 +29,7 @@ exports.addItemToInventory = function(req, res) {
 				// res.send(200, newItem);
 				console.log('NEW ITEM SAVED: ', newItem.attributes);
 			});
-		};
+		}
 	});
 };
 
@@ -43,11 +43,11 @@ exports.removeItemFromInventory = function(req, res) {
 			var item = new Item({
 				item: 'wrench',
 				distance: null
-			})
+			});
 			item.destroy().then(function(itemRemoving) {
 				Items.remove(itemRemoving);
 				res.send(200, itemRemoving);
-			})
+			});
 			res.send(200, found.value);
 		}
 		else {
@@ -90,6 +90,6 @@ exports.searchForItemInInventory = function(req, res) {
 			console.log('ITEM FOUND', item.attributes);
 			res.send(200, item);
 		}
-	})
+	});
 	// console.log('SEARCH FUNCTION FIRED OFF');
 };

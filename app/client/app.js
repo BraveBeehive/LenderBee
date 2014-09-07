@@ -13,6 +13,7 @@ var app = angular
     'lenderbee.searchresults',
     'lenderbee.searchbar',
     'lenderbee.services',
+    'lenderbee.inventory',
     'ngAnimate',
     'ngCookies',
     'ngResource',

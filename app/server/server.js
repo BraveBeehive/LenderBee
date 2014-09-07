@@ -17,9 +17,9 @@ var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 
 //Bookshelf and Knex
-var bookshelf = require('./database/database.js')
+var bookshelf = require('./database/database.js');
 var pg = require('pg');
-var conString = "postgres://lenderbee:lenderbee@localhost:7432/lenderbee";
+var conString = 'postgres://lenderbee:lenderbee@localhost:7432/lenderbee';
 var client = new pg.Client(conString);
 //connect to database;
 client.connect();
