@@ -12,6 +12,6 @@ angular.module('lenderbee.searchbar', ['lenderbee.services'])
 		// Might be some syntactical issues, but for the most part, the logic is on track.
 
 		$scope.searchItem = searchresultsFact.getSearchResults;
-		console.log(searchresultsFact, "this is searchresultsFact");
+		console.log(searchresultsFact, 'this is searchresultsFact');
 
 	}]);

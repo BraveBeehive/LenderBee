@@ -47,13 +47,13 @@ knex.schema.hasTable('inventory').then(function(exists) {
 knex.schema.hasTable('items of users').then(function(exists) {
   if (!exists) {
     knex.schema.createTable('items of users', function (table) {
-      table.increments('id').primary()
+      table.increments('id').primary();
       table.integer('user').unsigned()
         .references('id')
         .inTable('users');
       table.integer('item').unsigned()
         .references('id')
-        .inTable('inventory')
+        .inTable('inventory');
     }).then(function (table) {
       console.log('Created Table INVENTORY: ', table);
     });

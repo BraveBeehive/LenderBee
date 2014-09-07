@@ -39,7 +39,7 @@ npm install
 npm install -g bower
 bower install
 # Install compass css pre-processor Ruby gem:
-sudo gem update --system
+sudo gem update --system # if you get an options error, leave out --system.
 sudo gem install compass
 sudo gem install sass
 # Tests
