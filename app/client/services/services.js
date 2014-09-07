@@ -17,9 +17,9 @@ angular.module('lenderbee.services', [])
 			.then(function(resp) {
 				results.searchResults = resp.data;
 				console.log(results.searchResults, "this is results.searchResults");
-				if (results.searchResults.length === 0) {
-					results.searchResults = [{item: "No one in the area has that item to lend yet."}]
-				}
+				// if (results.searchResults.length === 0) {
+				// 	results.searchResults = [{item: "No one in the area has that item to lend yet."}]
+				// }
 				// console.log(resp.data, 'this is the response data');
 			})
 			// After storage of data, send client to searchresults view
@@ -31,4 +31,15 @@ angular.module('lenderbee.services', [])
 		// Return the results object
 		return results;
 	
+	}])
+
+	.factory('signup', ['$http', '$location', '$window', function($http, $location, $window) {
+		var signup = function(path) {
+			$location.path(path);
+		}
+
+		return {
+			signup: signup
+		}
+
 	}]);
