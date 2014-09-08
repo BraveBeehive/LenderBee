@@ -51,7 +51,8 @@ module.exports = function(app, passport) {
   });
 
   // routing for user to add item to his/her inventory
-  app.post('/api/inventory/add', function(request, response) {
+  app.post('/api/inventory/add', isLoggedIn, function(request, response) {
+    console.log('user is logged in', request.user);
     console.log('adding item to inventory:', request.body.item);
     // util.addItemToInventory(request, response);
     request.body.item.id = dummyData.length;
@@ -103,7 +104,8 @@ module.exports = function(app, passport) {
   // with what to handle persistent sessions
   app.get('/auth/facebook/callback', passport.authenticate('facebook'), function(request, response) {
     console.log('user authenticated via facebook');
-    response.send(200);
+    console.log(request.isAuthenticated(), 'evalutes to request.isAuthenticated');
+    response.redirect('/');
   });
 
   // handle logout/session end
@@ -121,9 +123,11 @@ module.exports = function(app, passport) {
 // to see if he/she is logged in before going to certain sites
 // use app.all('/api/*', isLoggedIn)?
 var isLoggedIn = function(request, response, next) {
+  console.log('current user:', request.user);
   if (request.isAuthenticated()) {
     return next();
+  } else {
+    console.log('not logged in');
+    response.send(404, 'user is not logged in.');
   }
-  console.log('not logged in');
-  response.send(200);
 };
