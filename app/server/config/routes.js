@@ -51,7 +51,7 @@ module.exports = function(app, passport) {
   });
 
   // routing for user to add item to his/her inventory
-  app.post('/api/inventory/add', function(request, response) {
+  app.post('/api/inventory/add', isLoggedIn, function(request, response) {
     console.log('adding item to inventory:', request.body.item);
     // util.addItemToInventory(request, response);
     request.body.item.id = dummyData.length;
@@ -60,7 +60,7 @@ module.exports = function(app, passport) {
   });
 
   // routing for user to remove item to his/her inventory
-  app.post('/api/inventory/remove', function(request, response) {
+  app.post('/api/inventory/remove', isLoggedIn, function(request, response) {
     console.log('removing item from inventory', request.body.item); 
     // util.removeItemFromInventory(request, response);
     console.log('dummyData pre-deletion for reference:',dummyData);   
@@ -69,25 +69,25 @@ module.exports = function(app, passport) {
   });
 
   // routing for user to lend item to another user
-  app.post('/api/inventory/lend', function(request, response) {
+  app.post('/api/inventory/lend', isLoggedIn, function(request, response) {
     console.log('lending item from inventory:', request.body.item);
     // util.lendItemFromInventory(request, response);
   });
 
   // routing for user to return item to another user
-  app.post('/api/inventory/return', function(request, response) {
+  app.post('/api/inventory/return', isLoggedIn, function(request, response) {
     console.log('returning item to owner:', request.body.item);
     // util.returnItemToOwner(request, response);
   });
 
   // routing for user to demand another user returns his/her item
-  app.post('/api/inventory/demand', function(request, response) {
+  app.post('/api/inventory/demand', isLoggedIn, function(request, response) {
     console.log('demanding item be returned to owner:', request.body.item);
     // util.demandReturnToOwner(request, response);
   });
 
   // routing for user to see inventory
-  app.get('/api/inventory/show', function(request, response) {
+  app.get('/api/inventory/show', isLoggedIn, function(request, response) {
     console.log('showing entire inventory');
     // util.getInventory(request, response);
     response.status(200).send(dummyData.filter(function(item){return item!==null;}));
@@ -103,7 +103,7 @@ module.exports = function(app, passport) {
   // with what to handle persistent sessions
   app.get('/auth/facebook/callback', passport.authenticate('facebook'), function(request, response) {
     console.log('user authenticated via facebook');
-    response.send(200);
+    response.send(200, request.user.attributes);
   });
 
   // handle logout/session end
@@ -117,13 +117,14 @@ module.exports = function(app, passport) {
 
 // UTILITY FUNCTIONS
 
-// Need to build in functionality where user is checked
-// to see if he/she is logged in before going to certain sites
-// use app.all('/api/*', isLoggedIn)?
+// Persistent sessions currently not working
+// Temporarily returning true no matter what for testing
+// Once sessions are persistent, the code can be uncommented
 var isLoggedIn = function(request, response, next) {
-  if (request.isAuthenticated()) {
+  // if (request.isAuthenticated()) {
     return next();
-  }
-  console.log('not logged in');
-  response.send(200);
+  // } else {
+    // console.log('not logged in');
+    // response.send(404, 'user is not logged in.');
+  // }
 };

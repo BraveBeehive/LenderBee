@@ -19,23 +19,20 @@ module.exports = function(passport) {
 	
 	// serialize user to create a session
 	passport.serializeUser(function(user, done) {
+		console.log('serializing user');
 		done(null, user.id);
 	});
 
-	//deserialize a user to destroy a session
+	//deserialize a user to destroy a session (upon logout, etc.)
 	passport.deserializeUser(function(id, done) {
-		console.log('about to deserialize');
-	  new User({id: id}).fetch().then(function(user) {
-	  	console.log('in new user creation', user);
-	  	return done(null, user);
-	  }, function(error) {
-	  	console.log('there is an error', error);
-	  	return done(error);
+		console.log('deserializing user');
+	  new User({
+	  	id: id
+	  })
+	  .fetch()
+	  .then(function(err, user) {
+	  	return done(err, user);
 	  });
-
-	  // User.findById(id, function(err, user) {
-	  // 	done(err, user);
-	  // });
 	});
 
 	// Session set-up for Facebook
@@ -52,13 +49,12 @@ module.exports = function(passport) {
 			process.nextTick(function() {
 				// find the user in the database by facebook user id
 				new User({
-					facebookProfileID: profile.id,
-					facebookToken: token,
-					facebookName: profile.name.givenName + ' ' + profile.name.familyName,
-					facebookEmail: profile.emails[0].value
-				}).fetch().then(function(found) {
-					if(found) {
-						console.log('user already exists!');
+					facebookProfileID: profile.id
+				})
+				.fetch()
+				.then(function(user) {
+					if(user) {
+						console.log('User already exists.');
 						return done(null, user);
 					}
 					else {
@@ -71,7 +67,7 @@ module.exports = function(passport) {
 
 						newUser.save().then(function(newUser) {
 							Users.add(newUser);
-							console.log('user added!!!');
+							console.log('New user added.');
 							return done(null, newUser);
 						});
 					}
