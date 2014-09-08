@@ -1,5 +1,8 @@
 'use strict';
 
+
+// Module and controller currently not in use.
+// The search results none view is using the search results controller.
 angular.module('lenderbee.searchresultsnone', ['lenderbee.services'])
 	
 	.controller('searchresultsnoneController', ['$scope', 'signup', 'searchagain', function($scope, signup, searchagain) {
