@@ -2,6 +2,21 @@
 
 var util = require('../database/utility.js');
 
+// UTILITY FUNCTIONS
+
+// Persistent sessions currently not working
+// Temporarily returning true no matter what for testing
+// Once sessions are persistent, the code can be uncommented
+var isLoggedIn = function(request, response, next) {
+  // if (request.isAuthenticated()) {
+    return next();
+  // } else {
+    // console.log('not logged in');
+    // response.send(404, 'user is not logged in.');
+  // }
+};
+
+
 module.exports = function(app, passport) {
   
   var dummyData = [
@@ -115,16 +130,3 @@ module.exports = function(app, passport) {
   });
 };
 
-// UTILITY FUNCTIONS
-
-// Persistent sessions currently not working
-// Temporarily returning true no matter what for testing
-// Once sessions are persistent, the code can be uncommented
-var isLoggedIn = function(request, response, next) {
-  // if (request.isAuthenticated()) {
-    return next();
-  // } else {
-    // console.log('not logged in');
-    // response.send(404, 'user is not logged in.');
-  // }
-};
