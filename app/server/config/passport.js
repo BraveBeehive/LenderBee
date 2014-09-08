@@ -57,9 +57,10 @@ module.exports = function(passport) {
 					facebookName: profile.name.givenName + ' ' + profile.name.familyName,
 					facebookEmail: profile.emails[0].value
 				}).fetch().then(function(found) {
-					if(found) {
+					if(found) {						
 						console.log('user already exists!');
-						return done(null, user);
+						return done(null, 'should be user here but where does that come from?');
+						// return done(null, user);
 					}
 					else {
 						var newUser = new User({
