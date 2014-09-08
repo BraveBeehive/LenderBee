@@ -10,8 +10,8 @@ var Items = require('../collections/items.js');
 var Item = bookshelf.Model.extend({
 	tableName: 'inventory',
 	users: function() {
-		return this.belongsTo(User).through(inventory_users_lend);
+		return this.belongsTo(User).through(bookshelf.inventoryUsersLend);
 	}
-})
+});
 
 module.exports = Item;
