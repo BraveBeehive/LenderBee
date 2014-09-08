@@ -3,8 +3,7 @@
 var bookshelf = require('../database.js');
 var Item = require('./item.js');
 var User = require('./user.js');
-var LendTo = require('./lendTo.js');
-
+// var LendTo = require('./lendTo.js');
 
 //There will can be multiple user models attached to this table
 //the primary id column from the users table will appear more

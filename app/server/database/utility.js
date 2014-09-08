@@ -5,15 +5,15 @@ var bookshelf = require('./database.js');
 var Item = require('./models/item.js');
 var User = require('./models/user.js');
 var ItemOfUser = require('./models/itemOfUser.js');
-var Items = require('./collections/items.js')
+var Items = require('./collections/items.js');
 var Users = require('./collections/users.js');
-
+var ItemsOfUsers = require('./collections/itemsOfUsers.js');
 
 //HELPER FUNCTIONS
 //gets the item id
 var getNewItemId = function(req) {
 	new Item({item: req.body.item}).fetch().then(function(item) {
-		return item.id
+		return item.id;
 	});
 };
 
@@ -49,9 +49,9 @@ exports.addItemToInventory = function(req, res) {
 
 				//creating the model to add to the join able
 				var insertItemIntoJoinTable = new ItemOfUser({
-					users_id: req.body.id,
-					inventory_id: newItem.id,
-					borrower_id: null
+					usersId: req.body.id,
+					inventoryId: newItem.id,
+					borrowerId: null
 				});
 				//adding the item to the join table
 				insertItemIntoJoinTable.save().then(function(entry) {
@@ -59,7 +59,7 @@ exports.addItemToInventory = function(req, res) {
 					res.send(200, entry.attributes);
 				});
 			});
-		};
+		}
 	});
 };
 
@@ -69,7 +69,7 @@ exports.removeItemFromInventory = function(req, res) {
 	.fetch()
 	.then(function(item) {
 		if(item) {
-			new ItemOfUser({users_id: req.body.id, inventory_id: item.id})
+			new ItemOfUser({usersId: req.body.id, inventoryId: item.id})
 			.fetch()
 			.then(function(model) {
 				if(model) {
@@ -77,23 +77,22 @@ exports.removeItemFromInventory = function(req, res) {
 					.then(function(modelRemoving) {
 						ItemsOfUsers.remove(modelRemoving);
 						res.send(200, 'removed item association with owner');
-					})
+					});
 				}
 				else {
 					res.send(200, 'no association with item');
 				}
-			})
+			});
 			item.destroy()
 			.ten(function(itemRemoving) {
 				Items.remove(itemRemoving);
 				res.send(200, 'item removed from inventory');
-			})
+			});
 		}
 		else {
 			res.send(200, 'no item found');
 		}
-
-	})
+	});
 };
 
 //SEARCH complete and working
@@ -115,26 +114,28 @@ exports.searchForItemInInventory = function(req, res) {
 			console.log('ITEM FOUND', item);
 			res.send(200, item);//anything else to send back??
 		}
-	})
+	});
 };
 
 //GET INVENTORY is completed and working
 exports.getInventory = function(req, res) {
 	console.log('in getInventory func');
-	new ItemOfUser({users_id: req.body.id})
+	new ItemOfUser({
+		usersId: req.body.id
+	})
 	.fetchAll()
 	.then(function(item) {
 		if(item) {
 			item.forEach(function(items) {
-				new Item({id: items.attributes.inventory_id})
+				new Item({id: items.attributes.inventoryId})
 				.fetch()
 				.then(function(model) {
 					console.log(model.attributes.item);
 					// res.send(200, model.attributes.item);
-				})
-			})
+				});
+			});
 		}
-	})
+	});
 };
 
 exports.lendItemFromInventory = function(req, res) {
@@ -142,34 +143,47 @@ exports.lendItemFromInventory = function(req, res) {
 	new Item({item: req.body.item}).fetch().then(function(item) {
 		if(item) {
 			//match the item id with the current user id in the join table
-			new ItemOfUser({users_id: req.body.id}).fetch().then(function(model) {
+			new ItemOfUser({
+				usersId: req.body.id
+			})
+			.fetch()
+			.then(function(model) {
 				if(model) {
-					//set the borrower_id to the person requesting the item
-					model.set({borrower_id: req.body.borrowerId});
+					//set the borrowerId to the person requesting the item
+					model.set({
+						borrowerId: req.body.borrowerId
+					});
 					return model.save();
 				}
 				else {
 					console.log('Nothing to lend');
 				}
-			})
+			});
 		}
-	})
+	});
 };
 
 exports.returnItemToOwner = function(req, res) {
 	//find the item id
 	new Item({item: req.body.item}).fetch().then(function(item) {
 		if(item) {
-			//match the borrowed item id with the current user id and set the borrower_id to null
-			new ItemOfUser({item: item.id, borrower_id: req.body.id}).fetch().then(function(model) {
+			//match the borrowed item id with the current user id and set the borrowerId to null
+			new ItemOfUser({
+				item: item.id, 
+				borrowerId: req.body.id
+			})
+			.fetch()
+			.then(function(model) {
 				if(model) {
-					model.set({borrower_id: null});
+					model.set({
+						borrowerId: null
+					});
 					return model.save();
 				}
 				else {
 					return(200, false);
 				}
-			})
+			});
 		}
-	})
+	});
 };

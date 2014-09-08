@@ -7,8 +7,8 @@ var knex = require('knex')({
   connection: {
     // host: '',
     // host: '127.0.0.1',
-    user: 'lenderbee',
-    password: 'lenderbee',
+    user: '',
+    password: '',
     database: 'lenderbee',
     charset: 'utf8'
   }
@@ -29,16 +29,16 @@ knex.schema.hasTable('users').then(function(exists) {
       table.string('facebookProfileID', 100);
       table.timestamps();
     }).createTable('inventory', function (table) {
-      table.increments('id').primary()
+      table.increments('id').primary();
       table.string('item', 255);
       table.float('distance');
-    }).createTable('inventory_users_lend', function (table) {
+    }).createTable('inventoryUsersLend', function (table) {
       table.increments('id').primary();
-      table.integer('users_id').unsigned().references('users.id');
-      table.integer('inventory_id').unsigned().references('inventory.id');
-      table.integer('borrower_id').unsigned().references('users.id');
+      table.integer('usersId').unsigned().references('users.id');
+      table.integer('inventoryId').unsigned().references('inventory.id');
+      table.integer('borrowerId').unsigned().references('users.id');
     }).then(function (table) {
-      console.log('TABLES CREATED:', table)
-    })
+      console.log('TABLES CREATED:', table);
+    });
   }
 });
