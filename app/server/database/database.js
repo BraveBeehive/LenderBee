@@ -5,9 +5,10 @@ var path = require('path');
 var knex = require('knex')({
   client: 'pg',
   connection: {
-    host: '127.0.0.1',
-    user: '',
-    password: '',
+    // host: '',
+    // host: '127.0.0.1',
+    user: 'lenderbee',
+    password: 'lenderbee',
     database: 'lenderbee',
     charset: 'utf8'
   }
@@ -17,6 +18,7 @@ var bookshelf = require('bookshelf')(knex);
 
 module.exports = bookshelf;
 
+//Creating our schema with the join table
 knex.schema.hasTable('users').then(function(exists) {
   if (!exists) {
     knex.schema.createTable('users', function (table) {
@@ -26,36 +28,17 @@ knex.schema.hasTable('users').then(function(exists) {
       table.string('facebookToken', 255);
       table.string('facebookProfileID', 100);
       table.timestamps();
-    }).then(function (table) {
-      console.log('Created Table USERS: ', table);
-    });
-  }
-});
-
-knex.schema.hasTable('inventory').then(function(exists) {
-  if (!exists) {
-    knex.schema.createTable('inventory', function (table) {
-      table.increments('id').primary();
+    }).createTable('inventory', function (table) {
+      table.increments('id').primary()
       table.string('item', 255);
       table.float('distance');
-    }).then(function (table) {
-      console.log('Created Table INVENTORY: ', table);
-    });
-  }
-});
-
-knex.schema.hasTable('items of users').then(function(exists) {
-  if (!exists) {
-    knex.schema.createTable('items of users', function (table) {
+    }).createTable('inventory_users_lend', function (table) {
       table.increments('id').primary();
-      table.integer('user').unsigned()
-        .references('id')
-        .inTable('users');
-      table.integer('item').unsigned()
-        .references('id')
-        .inTable('inventory');
+      table.integer('users_id').unsigned().references('users.id');
+      table.integer('inventory_id').unsigned().references('inventory.id');
+      table.integer('borrower_id').unsigned().references('users.id');
     }).then(function (table) {
-      console.log('Created Table INVENTORY: ', table);
-    });
+      console.log('TABLES CREATED:', table)
+    })
   }
 });
