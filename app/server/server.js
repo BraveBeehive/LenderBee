@@ -1,15 +1,16 @@
 'use strict';
-// Base set-up where packages, modules, and other files are required.
 
+// CONFIGURATION====================================================
+// Base set-up where packages, modules, and other files are required.
 // Require Express for server configuration, routing, etc.
 var express = require('express');
+
 // Define app using Express and port for securing server connection
 var app = express();
 var port = process.env.PORT || 7432;
 
 // Require Passport and associated resources to handle user authentication
 var passport = require('passport');
-// var LocalStrategy = require('passport-local');
 var FacebookStrategy = require('passport-facebook');
 var flash = require('connect-flash');
 
@@ -19,16 +20,6 @@ var morgan = require('morgan');
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 
-//Bookshelf and Knex
-var bookshelf = require('./database/database.js');
-var pg = require('pg');
-var conString = 'postgres://lenderbee:lenderbee@localhost:7432/lenderbee';
-var client = new pg.Client(conString);
-//connect to database;
-client.connect();
-
-
-// configuration (to be used later) ================================
 require('./config/passport')(passport); // pass passport for configuration
 
 // Set up and configure Express application
@@ -55,30 +46,17 @@ app.use(flash());
 app.use(express.static(__dirname + '../../client')); 
 app.use('/bower_components', express.static(__dirname + '../../../bower_components'));
 
-// Set up routes to be prefixed with API
-// app.use('/api', allRoutes);
-
-// routes (to be changed later) ======================================
 require('./config/routes.js')(app, passport);
 
-// Open server connection
+// DATABASE CONFIGURATION/CONNECTION ===============================
+//Bookshelf and Knex
+var bookshelf = require('./database/database.js');
+var pg = require('pg');
+var conString = 'postgres://lenderbee:lenderbee@localhost:7432/lenderbee';
+var client = new pg.Client(conString);
+//connect to database;
+client.connect();
+
+// Open server connection===========================================
 app.listen(port);
 console.log('Server now open and listening on port:', port);
-
-//TEST QUERIES
-// var query = client.query('select * from users');
-// query.on('row', function(row, result) {
-//   result.addRow(row);
-// });
-
-// var query = client.query('select * from inventory');
-// query.on('row', function(row, result) {
-//   result.addRow(row);
-// });
-
-
-// query.on('end', function(result) {
-//   console.log(JSON.stringify(result.rows, null, ' '));
-//   client.end();
-// })
-//TEST QUERY END
