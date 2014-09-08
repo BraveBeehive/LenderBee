@@ -16,14 +16,13 @@ var isLoggedIn = function(request, response, next) {
   // }
 };
 
-
 module.exports = function(app, passport) {
   
   var dummyData = [
     {
       id: 0,
       name: 'spork',
-      owner: 'Tommy', 
+      owner: 'Jonathan', 
       possessor: 'Tommy',
       isRequested: true
     },
@@ -37,15 +36,15 @@ module.exports = function(app, passport) {
     {
       id: 2,
       name: 'wrench',
-      owner: 'Collin', 
-      possessor: 'Tommy',
+      owner: 'Jonathan', 
+      possessor: 'Collin',
       isRequested: false
     },
     {
       id: 3,
       name: 'bike',
-      owner: 'Tommy', 
-      possessor: 'Tommy',
+      owner: 'Jonathan', 
+      possessor: 'Mike',
       isRequested: false
     }
   ];
@@ -127,7 +126,7 @@ module.exports = function(app, passport) {
   // with what to handle persistent sessions
   app.get('/auth/facebook/callback', passport.authenticate('facebook'), function(request, response) {
     console.log('user authenticated via facebook');
-    response.send(200, request.user.attributes);
+    response.send(200);
   });
 
   // handle logout/session end

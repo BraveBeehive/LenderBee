@@ -10,7 +10,7 @@
 
 angular.module('lenderbee.inventory',[])
   // Temp value to indicate current authenticated user.
-  .value('Session', {user: 'Tommy'})
+  .value('Session', {user: 'Jonathan'})
   .factory('Inventory', ['Session', '$http', '$location', function(Session, $http, $location) {
     var inventory = {};
     // Item-User interactions; should use $http server requests eventually.
