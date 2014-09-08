@@ -28,7 +28,6 @@ coverage
 build/
 dist/
 .sass-cache/
-*.css
 *.css.*
 
 # Dependency directorys
