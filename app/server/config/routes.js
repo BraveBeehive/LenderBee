@@ -102,13 +102,13 @@ module.exports = function(app, passport) {
   // need to figure out where the response gets sent back to /
   // with what to handle persistent sessions
   app.get('/auth/facebook/callback', passport.authenticate('facebook'), function(request, response) {
-    console.log('user authenticated via facebook');
-    response.send(200);
+    console.log('user authenticated via facebook', request.user);
+    response.send(200, request.user);
   });
 
   // handle logout/session end
   // need to figure out how to make sure session is ended
-  app.get('/logout', function(request, response) {
+  app.get('#/logout', function(request, response) {
     console.log('user is logging out');
     request.logout();
     response.send(200);
