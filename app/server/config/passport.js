@@ -49,15 +49,13 @@ module.exports = function(passport) {
 			process.nextTick(function() {
 				// find the user in the database by facebook user id
 				new User({
-					facebookProfileID: profile.id,
-					facebookToken: token,
-					facebookName: profile.name.givenName + ' ' + profile.name.familyName,
-					facebookEmail: profile.emails[0].value
-				}).fetch().then(function(found) {
-					if(found) {						
-						console.log('user already exists!');
-						return done(null, 'should be user here but where does that come from?');
-						// return done(null, user);
+					facebookProfileID: profile.id
+				})
+				.fetch()
+				.then(function(user) {
+					if(user) {
+						console.log('User already exists.');
+						return done(null, user);
 					}
 					else {
 						var newUser = new User({
