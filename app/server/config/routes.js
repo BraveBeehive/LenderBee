@@ -138,9 +138,3 @@ module.exports = function(app, passport) {
     response.send(200);
   });
 };
-
-// UTILITY FUNCTIONS
-
-// Persistent sessions currently not working
-// Temporarily returning true no matter what for testing
-// Once sessions are persistent, the code can be uncommented
