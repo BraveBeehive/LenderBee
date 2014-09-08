@@ -1,0 +1,33 @@
+body {
+    background-image: url('bgimg2.jpg');
+    background-color: #cccccc;
+    font-family: monospace;
+}
+
+.container {
+	background-color: rgba(255,255,255,.8);
+	width: 350px;
+	padding: 2em;
+	margin-top: 5em;
+	margin-right: auto;
+	margin-left: auto;
+	box-shadow: 0 0 10px 1px black;
+	border-radius: 8px;
+}
+
+h1 {
+	font-size: 40px;
+}
+
+h3 {
+	font-size: 25px;
+}
+
+.headerbee {
+	margin-top: -2em;
+	font-size: 25px;
+}
+
+.itemlist {
+	font-size: 16px;
+}
