@@ -39,6 +39,17 @@ angular.module('lenderbee.services', [])
 
 		return {
 			signup: signup
-		}
+		};	
+
+	}])
+
+	.factory('searchagain', ['$location', function($location) {
+		var searchagain = function() {
+			$location.path('/searchbar');
+		};
+
+		return {
+			searchagain: searchagain
+		};
 
 	}]);

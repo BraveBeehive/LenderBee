@@ -2,7 +2,7 @@
 
 angular.module('lenderbee.searchbar', ['lenderbee.services'])
 
-	.controller('searchbarController', ['$scope', '$location', 'searchresultsFact', function($scope, $location, searchresultsFact) {
+	.controller('searchbarController', ['$scope', '$location', 'searchresultsFact', 'signup', function($scope, $location, searchresultsFact, signup) {
 		// searchresultsFact holds the data and does the ajax calls
 
 		// searchQuery stores the querystr property that will be passed to the ajax call
@@ -13,5 +13,7 @@ angular.module('lenderbee.searchbar', ['lenderbee.services'])
 
 		$scope.searchItem = searchresultsFact.getSearchResults;
 		console.log(searchresultsFact, 'this is searchresultsFact');
+
+		$scope.signup = signup.signup;
 
 	}]);
