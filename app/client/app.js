@@ -25,6 +25,7 @@ var app = angular
     // console.log('app.config loaded!');
     $routeProvider
       .when('/', {
+        redirectTo: '/inventory' // should go to /searchbar. 
       })
       .when('/searchresults', {
         templateUrl: 'searchresults/searchresults.html',

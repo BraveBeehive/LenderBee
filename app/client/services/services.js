@@ -27,7 +27,7 @@ angular.module('lenderbee.services', [])
 					// Otherwise, redirect to the search results
 					$location.path('/searchresults');
 				}
-			})
+			});
 		};
 
 		// Return the results object
@@ -39,7 +39,7 @@ angular.module('lenderbee.services', [])
 		// Signup function that just redirects to Facebook authentication
 		var signup = function() {
 			$window.open('/auth/facebook');
-		}
+		};
 
 		return {
 			signup: signup
