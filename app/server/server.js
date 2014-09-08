@@ -3,6 +3,9 @@
 
 // Require Express for server configuration, routing, etc.
 var express = require('express');
+// Define app using Express and port for securing server connection
+var app = express();
+var port = process.env.PORT || 7432;
 
 // Require Passport and associated resources to handle user authentication
 var passport = require('passport');
@@ -24,9 +27,6 @@ var client = new pg.Client(conString);
 //connect to database;
 client.connect();
 
-// Define app using Express and port for securing server connection
-var app = express();
-var port = process.env.PORT || 7432;
 
 // configuration (to be used later) ================================
 require('./config/passport')(passport); // pass passport for configuration

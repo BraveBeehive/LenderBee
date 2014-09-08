@@ -19,14 +19,15 @@ module.exports = function(passport) {
 	
 	// serialize user to create a session
 	passport.serializeUser(function(user, done) {
+		console.log('serializing user');
 		done(null, user.id);
 	});
 
 	//deserialize a user to destroy a session (upon logout, etc.)
 	passport.deserializeUser(function(id, done) {
-		console.log('about to deserialize');
+		console.log('deserializing user');
 	  new User({
-	  	id: user.id
+	  	id: id
 	  })
 	  .fetch()
 	  .then(function(err, user) {
