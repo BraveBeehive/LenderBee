@@ -48,6 +48,32 @@ module.exports = function (grunt) {
         }
       }
     },
+
+    concurrent: {
+      target: {
+        tasks: ['nodemon', 'watch'],
+        options: {
+          logConcurrentOutput: true
+        }
+      }
+    },
+
+    watch: {
+      scripts: {
+        files: [
+          'app/**/*.js',
+          'app/**/*.css',
+          'app/**/*.html',
+          'Gruntfile.js',
+          'karma.conf.js'
+        ],
+        tasks: ['lint', 'build', 'test'],
+        options: {
+          spawn: false,
+        },
+      }, 
+    }
+
   });
 
   grunt.registerTask('lint', [
@@ -63,13 +89,13 @@ module.exports = function (grunt) {
 
   grunt.registerTask('serve', [
     'startPostgres',
-    'nodemon:server',
+    'concurrent'
   ]);
 
   grunt.registerTask('default', [
     'lint',
     'build',
     'test',
-    'serve'
+    'serve',
   ]);
 };
