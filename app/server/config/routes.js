@@ -49,6 +49,15 @@ module.exports = function(app, passport) {
     }
   ];
 
+  var isLoggedIn = function(request, response, next) {
+    // if (request.isAuthenticated()) {
+      return next();
+    // } else {
+      // console.log('not logged in');
+      // response.send(404, 'user is not logged in.');
+    // }
+  };
+  
   // just for testing; checks if any request has been made to the server
   // feel free to comment out in later builds
   app.use(function(request, response, next) {
